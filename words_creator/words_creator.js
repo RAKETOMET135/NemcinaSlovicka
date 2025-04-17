@@ -556,6 +556,10 @@ function main(){
     window.addEventListener("beforeunload", saveFileData)
     document.addEventListener("visibilitychange", saveFileData)
 
+    setInterval(() => {
+        saveFileData()
+    }, 300000)
+
     document.addEventListener("keydown", onKeyDown)
     document.addEventListener("keyup", onKeyUp)
 

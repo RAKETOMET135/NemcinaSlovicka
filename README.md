@@ -1,5 +1,12 @@
 # Němčina Slovíčka
 
-<img src="images/WebsiteIcon_larger.png" alt="WebsiteLogo" width="200"/>
+Webová stránka určená pro učení německých slovíček. Vyzkoušejte nově přidané pexeso nebo vyzkoušejte starý dobrý systém, kde píšete překlad slovíčka.
 
-**Tato webová stránka slouží pouze pro učení slovíček.**
+## Tvorba vlastních slovíček
+
+Vytvořte si vlastní soubor se slovíčky. Tento soubor lze vytvořit přímo na webu a lze jej exportovat pro využití na více zařízeních a prohlížečích jako .json soubor.
+Všechny nahrané soubory se slovíčky a vytvořené slovíčka na webu jsou uloženy v místním úložišti prohlížeče.
+
+> Uživatel je odpovědný za všechna slovíčka, která napíše nebo nahraje na web.
+
+**Tato webová stránka slouží jen pro studium**

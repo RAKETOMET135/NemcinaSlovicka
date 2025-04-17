@@ -300,4 +300,13 @@ body::-webkit-scrollbar-thumb {
     #current-player, #game-time, #player-score {
         font-size: 1rem;
     }
+    #final-game-time, #final-game-score {
+        font-size: 1rem;
+    }
+    #final-game-time {
+        top: 40%;
+    }
+    #final-game-score {
+        top: 45%;
+    }
 }

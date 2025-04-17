@@ -429,11 +429,11 @@ function main(){
         const step2browserHeader = document.querySelector("#step-2-browser-header")
 
         if (browserDataSelect.children.length <= 0){
-            browserDataSelect.style.visibility = "hidden"
+            browserDataSelect.style.display = "none"
             step2browserHeader.innerText = "Nemáte žádná data"
         }
         else {
-            browserDataSelect.style.visibility = "visible"
+            browserDataSelect.style.display = "block"
             step2browserHeader.innerText = "Načíst data z prohlížeče"
         }
     })

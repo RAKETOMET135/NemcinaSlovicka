@@ -425,8 +425,21 @@ function main(){
 
             browserDataSelect.append(option)
         }
+
+        const step2browserHeader = document.querySelector("#step-2-browser-header")
+
+        if (browserDataSelect.children.length <= 0){
+            browserDataSelect.style.visibility = "hidden"
+            step2browserHeader.innerText = "Nemáte žádná data"
+        }
+        else {
+            browserDataSelect.style.visibility = "visible"
+            step2browserHeader.innerText = "Načíst data z prohlížeče"
+        }
     })
     browserDataLoadButton.addEventListener("click", () => {
+        if (browserDataSelect.children.length <= 0) return
+
         const fileIndex = browserDataSelect.value
         const fileToLoad = data.files[fileIndex]
         

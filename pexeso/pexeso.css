@@ -269,6 +269,9 @@ body::-webkit-scrollbar-thumb {
 }
 
 @media (width < 800px) {
+    #game {
+        width: 95%;
+    }
     #current-player {
         top: 2.5em;
         height: 1em;
@@ -285,5 +288,17 @@ body::-webkit-scrollbar-thumb {
     }
     #cards {
         overflow-y: auto;
+        width: 95%;
+        border: 2px solid red;
+    }
+    .card {
+        width: 5em;
+        height: 5em;
+    }
+    #background-helper-header {
+        visibility: hidden;
+    }
+    #current-player, #game-time, #player-score {
+        font-size: 1rem;
     }
 }

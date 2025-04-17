@@ -526,4 +526,7 @@ input[type="file"] {
         padding-top: 0;
         padding-bottom: 0;
     }
+    #step-1 h2, #step-2-new h2, #step-2-chose h2, #step-2-open h2, #step-2-browser h2 {
+        font-size: 1.5rem;
+    }
 }

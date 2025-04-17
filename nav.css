@@ -8,6 +8,7 @@ nav {
     background-color: #FDFBFD;
     width: 100%;
     padding-top: 1em;
+    z-index: 10;
 }
 
 #nav-logo {

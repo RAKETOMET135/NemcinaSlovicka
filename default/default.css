@@ -1,0 +1,482 @@
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap');
+
+* {
+    margin: 0;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+}
+
+body {
+    background-color: #FDFBFD;
+    overflow-x: hidden;
+}
+
+#main-section {
+    position: absolute;
+    width: 90%;
+    height: 20em;
+    left: 50%;
+    top: 10%;
+    translate: -50%;
+}
+#display {
+    width: 30em;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    height: 70%;
+    background-color: #021F31;
+    border-radius: 0.3em;
+    translate: -50%;
+}
+#input {
+    width: 30em;
+    height: 27.5%;
+    bottom: 0;
+    position: absolute;
+    left: 50%;
+    translate: -50%;
+}
+#display-word {
+    font-size: 3rem;
+    color: white;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: "DynaPuff";
+}
+#repeat-word {
+    position: absolute;
+    font-size: 3rem;
+    color: white;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    cursor: pointer;
+    font-family: "DynaPuff";
+}
+#user-input {
+    position: absolute;
+    width: 100%;
+    outline: none;
+    border: none;
+    background-color: #021F31;
+    border-radius: 0.3em;
+    height: 50%;
+    top: 50%;
+    left: 0;
+    translate: 0 -50%;
+    box-sizing: border-box;
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+    font-family: "DynaPuff";
+}
+
+#submit-answer, #tts-button {
+    position: absolute;
+    aspect-ratio: 1.15/1;
+    translate: 0 -50%;
+    top: calc(50% + 0.25em);
+    height: calc(50% - 0.5em);
+    cursor: pointer;
+    border-radius: 0.75em;
+    border: none;
+    background-color: rgb(8, 196, 33);
+    font-size: 1rem;
+    z-index: 1;
+    transition: filter 0.3s, scale 0.3s;
+}
+#submit-answer::before, #tts-button::before {
+    content: var(--before-content, "✓");
+    width: 100%;
+    height: 110%;
+    background-color: rgb(6, 223, 35);
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: -0.5em;
+    z-index: 0;
+    font-family: "DynaPuff";
+    color: white;
+    border-radius: 0.75em;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+#submit-answer:hover, #tts-button:hover {
+    filter: brightness(1.1);
+    scale: 1.02;
+}
+
+#submit-answer {
+    left: 102%;
+}
+#tts-button {
+    right: 102%;
+    background-color: #021F31;
+}
+#tts-button::before {
+    content: " ";
+    background-image: var(--before-image, url("../images/VoiceIcon.png"));
+    background-size: 80% 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #054064;
+}
+
+#helper-section {
+    position: absolute;
+    width: 40%;
+    height: 10em;
+    left: 50%;
+    top: 45%;
+    translate: -50%;
+}
+#buttons-holder {
+    position: absolute;
+    width: 75%;
+    height: 75%;
+    top: 12.5%;
+    left: 50%;
+    translate: -50%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    row-gap: 0;
+}
+#buttons-holder button {
+    position: relative;
+    aspect-ratio: 1.15/1;
+    height: calc(50% - 0.5em);
+    cursor: pointer;
+    border-radius: 0.75em;
+    border: none;
+    background-color: #021F31;
+    font-size: 1rem;
+    z-index: 1;
+    transition: filter 0.3s, scale 0.3s;
+    scale: 0.75;
+    margin: -0.3em;
+    margin-left: -0.5em;
+}
+#buttons-holder button::before {
+    width: 100%;
+    height: 110%;
+    background-color: #054064;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: -0.41em;
+    z-index: 0;
+    font-family: "DynaPuff";
+    color: white;
+    border-radius: 0.6em;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+#buttons-holder button:hover {
+    filter: brightness(1.2);
+    scale: 0.77;
+}
+#a-umlaut-button::before {
+    content: var(--before-a, "ä");
+}
+#o-umlaut-button::before {
+    content: var(--before-o, "ö");
+}
+#u-umlaut-button::before {
+    content: var(--before-u, "ü");
+}
+#sharp-s-button::before {
+    content: "ß";
+}
+#upper-case-button::before {
+    content: "⇪";
+}
+#skip-correct-answer-button::before {
+    content: var(--before-skip, "≪");
+}
+#hint-button::before {
+    content: "?";
+}
+#flip-words-button::before {
+    content: "<->";
+}
+
+#stats-section {
+    position: absolute;
+    width: 40%;
+    height: 10em;
+    left: 50%;
+    top: 63%;
+    translate: -50%;
+}
+#stats-section > div {
+    width: 5em;
+    height: 25%;
+    position: absolute;
+}
+#stats-section img {
+    height: 100%;
+    aspect-ratio: 1/1;
+    position: absolute;
+    left: 0;
+}
+#stats-section p {
+    height: 100%;
+    aspect-ratio: 1/1;
+    position: absolute;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "DynaPuff";
+    font-size: 1.5rem;
+}
+#correct-stat {
+    left: 50%;
+    translate: -105%;
+}
+#incorrect-stat {
+    left: 50%;
+    translate: 5%;
+}
+#streak-stat {
+    left: 50%;
+    translate: -50%;
+    top: 40%;
+}
+#correct {
+    color: rgb(4, 187, 4);
+}
+#incorrect {
+    color: rgb(235, 0, 0);
+}
+#streak {
+    color: rgb(231, 135, 25);
+}
+
+#selection-section {
+    position: absolute;
+    width: 90%;
+    height: 10em;
+    left: 50%;
+    top: 80%;
+    translate: -50%;
+}
+#words-range {
+    border: #021F31 5px solid;
+    border-radius: 0.3em;
+    font-size: 1.5rem;
+    position: absolute;
+    left: 50%;
+    translate: -50%;
+    font-family: "DynaPuff";
+    outline: none;
+    top: 25%;
+    cursor: pointer;
+    background-color: #021F31;
+    color: white;
+}
+#words-range option {
+    font-size: 1.5rem;
+    color: white;
+}
+#selection-section p {
+    font-size: 1.5rem;
+    font-family: "DynaPuff";
+    color: #021F31;
+    position: absolute;
+    left: 50%;
+    translate: -50%;
+    top: 5%;
+}
+#words-range::-webkit-scrollbar {
+    width: 5px;
+}
+#words-range::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 10px;
+}
+#words-range::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 10px;
+}
+#all-words-seen-mark {
+    position: absolute;
+    top: 26.5%;
+    height: 2em;
+    left: 68%;
+}
+#words-list-button, #words-list-button2 {
+    position: absolute;
+    height: 5em;
+    width: 35em;
+    cursor: pointer;
+    border-radius: 0.7em;
+    border: none;
+    background-color: #021F31;
+    font-size: 0.5rem;
+    z-index: 1;
+    transition: filter 0.3s, scale 0.3s;
+    scale: 0.75;
+    left: 50%;
+    translate: -50%;
+    top: 60%;
+}
+#words-list-button::before, #words-list-button2::before {
+    content: "Seznam slovíček";
+    width: 100%;
+    height: 110%;
+    background-color: #054064;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: -0.41em;
+    z-index: 0;
+    font-family: "DynaPuff";
+    color: white;
+    border-radius: 0.35em;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+#words-list-button:hover, #words-list-button2:hover {
+    filter: brightness(1.2);
+    scale: 0.77;
+}
+
+#words-list-preview {
+    width: 90%;
+    height: 80%;
+    top: 10%;
+    left: 50%;
+    translate: -50%;
+    position: absolute;
+}
+#words-list-preview h2 {
+    font-size: 3rem;
+    font-family: "DynaPuff";
+    color: #021F31;
+    position: absolute;
+    left: 50%;
+    translate: -50%;
+    top: 1%;
+}
+#words-list-basic-data {
+    width: 25em;
+    height: 3rem;
+    position: absolute;
+    top: calc(1% + 4rem);
+    left: 50%;
+    translate: -50%;
+}
+#words-list-basic-data p {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1.5rem;
+    font-family: "DynaPuff";
+    color: #021F31;
+    background-color: #021F31;
+    border-radius: 0.3em;
+}
+#words-list-words {
+    width: 25em;
+    height: 36em;
+    position: absolute;
+    top: 17.5%;
+    left: 50%;
+    translate: -50%;
+    overflow-y: auto;
+    background-color: #021F31;
+    border-radius: 0.3em;
+    text-align: center;
+}
+#words-list-words::-webkit-scrollbar {
+    width: 5px;
+}
+#words-list-words::-webkit-scrollbar-track {
+    background-color: #021F31;
+    border-radius: 10px;
+}
+#words-list-words::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 10px;
+  }
+#words-list-words div {
+    padding-bottom: 1em;
+}
+#words-list-words span {
+    font-family: "DynaPuff";
+}
+#words-list-button2::before {
+    content: "Zpátky";
+}
+#words-list-button2 {
+    top: 100.1%;
+}
+
+@media (width < 800px) {
+    #display, #input, #helper-section, #stats-section {
+        width: 80%;
+    }
+    #display-word, #repeat-word {
+        font-size: 1.5rem;
+    }
+    #selection-section p {
+        font-size: 1rem;
+    }
+    #display {
+        height: 50%;
+    }
+    #input {
+        bottom: 25%;
+    }
+    #helper-section {
+        top: 42%;
+    }
+    #words-list-button2 {
+        top: 101%;
+    }
+    #words-list-preview h2 {
+        font-size: 2rem;
+        width: 100%;
+        text-align: center;
+    }
+    #words-list-basic-data {
+        width: 85%;
+        height: 2.5rem;
+    }
+    #words-list-words {
+        width: 85%;
+        top: 25%;
+        height: 70%;
+    }
+    #all-words-seen-mark {
+        left: auto;
+        right: 0%;
+    }
+}

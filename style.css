@@ -1,0 +1,381 @@
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap');
+
+:root {
+    --scrollbar-color: white;
+}
+
+* {
+    margin: 0;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+}
+
+body {
+    background-color: #FDFBFD;
+    overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
+    width: 5px;
+}
+body::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 10px;
+}
+body::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-color);
+    border-radius: 10px;
+}
+
+/* Main section */
+#main-section {
+    position: absolute;
+    left: 0;
+    top: 12em;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#main-section > div, .learn-section > div {
+    height: 25em;
+    margin: 2em;
+    position: relative;
+}
+#main-section > div img, .learn-section > div img {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    mask-image: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 70%);
+}
+#main-section p, .learn-section p {
+    font-family: "DynaPuff";
+    font-size: 2rem;
+    text-align: center;
+    margin-top: 20%;
+}
+#main-section button, .learn-section button {
+    padding: 1em 2em;
+    width: 20em;
+    margin-top: 5em;
+    position: relative;
+    left: 50%;
+    translate: -50%;
+    cursor: pointer;
+    border-radius: 0.75em;
+    border: none;
+    background-color: rgb(8, 196, 33);
+    font-size: 1rem;
+    z-index: 1;
+    transition: filter 0.3s, scale 0.3s;
+}
+#try-button::before, #pexeso-button::before {
+    width: 20em;
+    height: 2em;
+    background-color: rgb(6, 223, 35);
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: -1.25em;
+    z-index: 0;
+    font-family: "DynaPuff";
+    color: white;
+    border-radius: 0.75em;
+    text-align: center;
+    padding-top: 1em;
+}
+#try-button::before {
+    content: "Vyzkoušet";
+}
+#main-section button:hover, #pexeso-button:hover {
+    filter: brightness(1.1);
+    scale: 1.02;
+}
+#main-bottom {
+    width: 100%;
+    height: 4em;
+    position: absolute;
+    bottom: 0;
+    border-top: 2px solid rgba(125, 125, 125, 0.7);
+    border-bottom: 2px solid rgba(125, 125, 125, 0.7);
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+#main-bottom p {
+    font-family: "DynaPuff";
+    font-size: 1rem;
+    text-align: center;
+    color: rgba(125, 125, 125, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Learn section */
+.learn-section {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: top;
+}
+#pexeso-button::before {
+    content: "Hrát";
+}
+
+/* Contact */
+#contact {
+    background-color: #021F31;
+    top: 320%;
+    position: absolute;
+    height: 50vh;
+    width: 100%;
+}
+#decor {
+    width: 100%;
+    height: 10em;
+    position: absolute;
+    top: -10em;
+    background-image: url(images/contact_design.png);
+    background-repeat: repeat-x;
+    background-size: 100% 100%;
+}
+
+/* Info section */
+#info-section {
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(52, 188, 252, 0);
+    position: absolute;
+    top: 200%;
+}
+#info-section h2 {
+    font-family: "DynaPuff";
+    font-size: 2rem;
+    text-align: center;
+    color: rgb(28, 6, 223);
+}
+#info-section p {
+    font-family: "DynaPuff";
+    font-size: 1.25rem;
+    text-align: center;
+    margin-top: 2em;
+}
+#info-section > div > div {
+    height: 28em;
+    margin-top: 5em;
+    margin-left: 5em;
+    margin-right: 5em;
+    display: flex;
+    align-items: center;
+    justify-self: center;
+}
+.card {
+    background-color: white;
+    height: 100%;
+    width: 20em;
+    margin: 1em;
+    border-radius: 0.75em;
+    transition: scale 0.3s;
+    cursor: pointer;
+}
+.card:hover {
+    scale: 1.01;
+}
+.card h2 {
+    margin-top: 1em;
+}
+.card p {
+    margin-left: 1em;
+    margin-right: 1em;
+    text-align: justify;
+}
+
+
+/* Loading */
+.loading-holder {
+    position: relative;
+    width: 100px;
+    height: 30px;
+    padding: 0;
+}
+.loading-holder > span {
+    position: absolute;
+    right: 0;
+    width: 3px;
+    height: 30px;
+    background-color: white;
+    display: block;
+    border-radius: 3px;
+    transform-origin: 50% 100%;
+    animation: move 2.8s linear infinite;
+}
+.loading-holder > span:nth-child(1) {
+    animation-delay: -0.4s;
+}
+.loading-holder > span:nth-child(2) {
+    animation-delay: -0.8s;
+}
+.loading-holder > span:nth-child(3) {
+    animation-delay: -1.2s;
+}
+.loading-holder > span:nth-child(4) {
+    animation-delay: -1.6s;
+}
+.loading-holder > span:nth-child(5) {
+    animation-delay: -2s;
+}
+.loading-holder > span:nth-child(6) {
+    animation-delay: -2.4s;
+}
+.loading-holder > span:nth-child(7) {
+    animation-delay: -2.8s;
+}
+@keyframes move {
+    0% {
+        opacity: 0;
+        transform: translateX(0px) rotate(0deg);
+    }
+    20% {
+        opacity: 1;
+    }
+    40% {
+        transform: translateX(-40px) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(-50px) rotate(22deg);
+    }
+    85% {
+        opacity: 1;
+        transform: translateX(-85px) rotate(60deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-100px) rotate(65deg);
+    }
+}
+#website-content {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    left: 10%;
+}
+#informations, #web-content, #pexeso-content, #words-list-content, #words-creation-content {
+    width: 20%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    cursor: pointer;
+}
+#informations h1, #web-content h1, #pexeso-content h1, #words-list-content h1, #words-creation-content h1 {
+    color: white;
+    font-size: 2rem;
+    margin-left: 10%;
+    margin-top: 0.5em;
+    font-family: "DynaPuff";
+}
+#informations p, #web-content p, #pexeso-content p, #words-list-content p, #words-creation-content p {
+    color: white;
+    font-family: "DynaPuff";
+    margin-top: 0.5em;
+    text-align: left;
+    margin-left: 10%;
+    margin-right: 5%;
+    font-size: 1.2rem;
+}
+#web-content {
+    left: 20%;
+}
+#pexeso-content {
+    left: 40%;
+}
+#words-list-content {
+    left: 60%;
+}
+#words-creation-content {
+    left: 80%;
+}
+#informations {
+    cursor: default;
+}
+
+@media (width < 800px) {
+    body {
+        overflow-y: hidden;
+    }
+
+    #main-section {
+        flex-direction: column;
+        width: 100%;
+        left: 0;
+        height: 100%;
+        top: -10%;
+        z-index: 5;
+    }
+    #main-section div {
+        width: 100%;
+        height: 5em;
+        margin: 0;
+        margin-left: 0;
+        margin-top: 2em;
+    }
+    #main-section p {
+        margin-left: 1em;
+        margin-right: 1em;
+    }
+    #main-section button {
+        margin-top: 5%;
+    }
+    #main-bottom {
+        bottom: 0;
+    }
+    .learn-section {
+        flex-direction: column;
+        height: 80%;
+        margin-top: 25%;
+        overflow-y: hidden;
+    }
+    .learn-section div {
+        translate: 0 -35%;
+    }
+    .learn-section button {
+        margin-top: 12em;
+    }
+    .learn-section p {
+        margin-left: 1em;
+        margin-right: 1em;
+    }
+    #l-1 {
+        translate: 0 80%;
+    }
+    #l-1 img {
+        width: 100%;
+    }
+    #l-1 p {
+        translate: 0 -240%;
+    }
+    #l-2 {
+        translate: 0 55%;
+    }
+    #contact {
+        translate: 0 175%;
+    }
+    #decor {
+        translate: 0 1%;
+    }
+    
+    section {
+        width: 100%;
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+}

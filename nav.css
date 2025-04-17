@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap');
+
+nav {
+    height: 3em;
+    position: fixed;
+    margin-top: 0.0em;
+    z-index: 5;
+    background-color: #FDFBFD;
+    width: 100%;
+    padding-top: 1em;
+}
+
+#nav-logo {
+    cursor: pointer;
+    width: 20em;
+    margin-left: 25%;
+    height: calc(100% - 0.5em);
+    margin-top: -0.5em;
+}
+#nav-logo p {
+    display: inline;
+    font-size: 2rem;
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    color: #021F31;
+    font-weight: bold;
+    font-family: "DynaPuff";
+    width: 10em;
+}
+#nav-logo img {
+    height: 3em;
+    margin-right: 1em;
+}
+
+#dark-mode {
+    height: 3rem;
+    position: absolute;
+    cursor: pointer;
+    margin-right: 25%;
+    right: 0;
+    top: 50%;
+    translate: 0 -50%;
+    background-color: #021F31;
+    border-radius: 100%;
+    border: 2px solid #021F31;
+}
+
+@media (width < 800px) {
+    #nav-logo {
+        margin-left: 0.1em;
+    }
+    #nav-logo p {
+        font-size: 1.5rem;
+        left: 50%;
+        translate: -50% -50%;
+        text-align: center;
+    }
+    #dark-mode {
+        margin-right: 0.1em;
+    }
+}

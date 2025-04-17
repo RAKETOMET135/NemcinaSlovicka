@@ -1,0 +1,26 @@
+{
+    "words":[
+        {"cz": "akce, událost", "de": "die Veranstaltung"},
+        {"cz": "ubytování", "de": "die Unterkunft"},
+        {"cz": "poznat, seznámit se", "de": "kennenlernen"},
+        {"cz": "hodit se, padnout", "de": "passen"},
+        {"cz": "přihodit se, stát se", "de": "passieren"},
+        {"cz": "přestěhovat se", "de": "umziehen"},
+        {"cz": "podniknout", "de": "unternehmen"},
+        {"cz": "soutěž, závod", "de": "der Wettbewerb"},
+        {"cz": "prosit, prosit o", "de": "bitten"},
+        {"cz": "účastnit se", "de": "teilnehmen"},
+        {"cz": "potkat", "de": "treffen"},
+        {"cz": "vydržet", "de": "aushalten"},
+        {"cz": "vystoupit", "de": "aussteigen"},
+        {"cz": "vchod, vstup, vjezd", "de": "der Eingang"},
+        {"cz": "vstup, vstupné", "de": "der Eintritt"},
+        {"cz": "dospělý, dospělá", "de": "der Erwachsene, die Erwachsene"},
+        {"cz": "přístav", "de": "der Hafen"},
+        {"cz": "bezplatný, zdarma", "de": "kostenlos"},
+        {"cz": "veřejný", "de": "öffentlich"},
+        {"cz": "konat se", "de": "stattfinden"},
+        {"cz": "opakovat", "de": "wiederholen"},
+        {"cz": "platba", "de": "die Zahlung"}
+    ]
+}

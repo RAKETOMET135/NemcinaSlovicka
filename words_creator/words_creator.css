@@ -1,0 +1,529 @@
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap');
+
+* {
+    margin: 0;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+}
+
+body {
+    background-color: #FDFBFD;
+    overflow-x: hidden;
+}
+
+#word-constructor, #file-opener, #word-preview {
+    width: 75%;
+    left: 50%;
+    translate: -50%;
+    top: 10%;
+    height: 35%;
+    position: absolute;
+}
+#word-constructor {
+    text-align: center;
+    font-size: 1.5rem;
+    font-family: "DynaPuff";
+    color: white;
+}
+#cz-word, #de-word, #priority {
+    width: 30%;
+    height: 15%;
+    position: absolute;
+    left: 50%;
+    translate: -50%;
+    top: 20%;
+    scale: 1.2;
+}
+#cz-word p, #de-word p, #priority p {
+    position: absolute;
+    width: 15%;
+    left: 0;
+    top: 0;
+    font-family: "DynaPuff";
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+}
+#cz-word input, #de-word input, #priority input {
+    position: absolute;
+    width: 75%;
+    left: 20%;
+    top: 50%;
+    translate: 0 -50%;
+    height: 50%;
+    outline: none;
+    border: none;
+    background-color: white;
+    color: #021F31;
+    text-align: center;
+    font-family: "DynaPuff";
+    border-radius: 0.3em;
+}
+#de-word {
+    top: 40%;
+}
+#priority {
+    top: 60%;
+}
+#priority p {
+    translate: -1.6em;
+}
+#create-button {
+    padding: 1em 2em;
+    width: 20em;
+    position: absolute;
+    left: 50%;
+    translate: -50%;
+    cursor: pointer;
+    border-radius: 0.75em;
+    border: none;
+    background-color: rgb(8, 196, 33);
+    font-size: 1rem;
+    z-index: 1;
+    transition: filter 0.3s, scale 0.3s;
+    bottom: 3.5%;
+}
+#create-button::before {
+    content: "Přidat";
+    width: 20em;
+    height: 2em;
+    background-color: rgb(6, 223, 35);
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: -1.25em;
+    z-index: 0;
+    font-family: "DynaPuff";
+    color: white;
+    border-radius: 0.75em;
+    text-align: center;
+    padding-top: 1em;
+}
+#create-button:hover {
+    filter: brightness(1.1);
+    scale: 1.02;
+}
+#word-constructor-info {
+    position: absolute;
+    left: 50%;
+    translate: 100%;
+}
+
+#step-1, #step-2-new, #step-2-open, #step-2-chose, #step-2-browser {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+#step-1 button, #step-2-new button, #step-2-open button, #step-2-chose button, #step-2-browser button, #home-return {
+    padding: 1em 2em;
+    width: 20em;
+    position: absolute;
+    cursor: pointer;
+    border-radius: 0.75em;
+    border: none;
+    background-color: rgb(8, 196, 33);
+    font-size: 1rem;
+    z-index: 1;
+    transition: filter 0.3s, scale 0.3s;
+    bottom: 3.5%;
+}
+#step-1 button::before, #step-2-new button::before, #step-2-open button::before, #step-2-chose button::before, #step-2-browser button::before, #home-return::before {
+    width: 20em;
+    height: 2em;
+    background-color: rgb(6, 223, 35);
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: -1.25em;
+    z-index: 0;
+    font-family: "DynaPuff";
+    color: white;
+    border-radius: 0.75em;
+    text-align: center;
+    padding-top: 1em;
+}
+#step-1 button:hover, #step-2-new button:hover, #step-2-open button:hover, #step-2-chose button:hover, #step-2-browser button:hover, #home-return:hover {
+    filter: brightness(1.1);
+    scale: 1.02;
+}
+#new-file, #json-import {
+    left: 50%;
+    translate: -125%;
+}
+#new-file::before {
+    content: "Nový soubor";
+}
+#json-import::before {
+    content: "Otevřít .json soubor";
+}
+#open-file, #browser-import {
+    left: 50%;
+    translate: 25%;
+}
+#open-file::before {
+    content: "Otevřít soubor";
+}
+#browser-import::before {
+    content: "Načíst data z prohlížeče";
+}
+#step-1 p, #step-2-chose p {
+    text-align: center;
+    font-size: 1.5rem;
+    font-family: "DynaPuff";
+    color: white;
+    position: absolute;
+    width: 15em;
+    left: 50%;
+    top: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+    translate: -50%;
+}
+#json-import-info {
+    translate: -112.5%;
+}
+#browser-import-info {
+    translate: 12.5%;
+}
+#step-1-left, #step-1-right, #step-2-chose-left, #step-2-chose-right {
+    width: calc(50% - 0.1em);
+    height: calc(100% - 0.1em);
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #021F31;
+    /*border: 0.1em solid white;*/
+    border-radius: 0.3em;
+}
+#step-1-right, #step-2-chose-right {
+    left: 50%;
+}
+#new-file, #open-file, #json-import, #browser-import {
+    left: 50%;
+    translate: -50%;
+}
+#step-1 {
+    border-radius: 0.3em;
+}
+#step-1 h2, #step-2-new h2, #step-2-chose h2, #step-2-open h2, #step-2-browser h2 {
+    color: white;
+    font-family: "DynaPuff";
+    text-align: center;
+    margin-top: 0.35em;
+    font-size: 2rem;
+}
+
+#step-2-new p, #step-2-open p, #step-2-browser p {
+    position: absolute;
+    left: 50%;
+    translate: -50%;
+    top: 25%;
+    font-size: 1.5rem;
+    font-family: "DynaPuff";
+    color: white;
+}
+#step-2-new input, #step-2-open input {
+    outline: none;
+    border: none;
+    background-color: white;
+    color: #021F31;
+    font-family: "DynaPuff";
+    position: absolute;
+    left: 50%;
+    translate: -50%;
+    top: 40%;
+    font-size: 1rem;
+    scale: 1.5;
+    text-align: center;
+    border-radius: 0.3em;
+    cursor: pointer;
+}
+#step-2-new input {
+    cursor: text;
+}
+#step-2-browser select {
+    outline: none;
+    border: none;
+    position: absolute;
+    left: 50%;
+    translate: -50%;
+    top: 40%;
+    font-size: 1.5rem;
+    color: #021F31;
+    background-color: white;
+    border-radius: 0.3rem;
+    font-family: "DynaPuff";
+    cursor: pointer;
+}
+#step-2-browser select::-webkit-scrollbar {
+    width: 5px;
+}
+#step-2-browser select::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 10px;
+}
+#step-2-browser select::-webkit-scrollbar-thumb {
+    background-color: #021F31;
+    border-radius: 10px;
+}
+#step-2-browser option {
+    color: #021F31;
+}
+#step-2-new button {
+    left: 50%;
+    translate: -50%;
+    bottom: 3.5%;
+}
+#step-2-new button::before {
+    content: var(--button-text, "Vytvořit");
+}
+input[type="file"] {
+    margin: 10px 0;
+    font-family: "DynaPuff";
+}
+#import-file, #load-data {
+    left: 50%;
+    translate: -50%;
+    bottom: 25%;
+}
+#import-file::before {
+    content: "Otevřít soubor";
+}
+#load-data::before {
+    content: "Načíst data";
+}
+
+#word-preview {
+    top: 50%;
+}
+#word-preview h1 {
+    font-size: 1.5rem;
+    font-family: "DynaPuff";
+    color: #021F31;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    translate: -50%;
+}
+#file-words-preview {
+    width: 50%;
+    height: 88%;
+    position: absolute;
+    left: 50%;
+    translate: -50%;
+    top: 12%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #021F31;
+    text-align: center;
+    border-radius: 0.3em;
+}
+#file-words-preview::-webkit-scrollbar {
+    width: 5px;
+}
+#file-words-preview::-webkit-scrollbar-track {
+    background-color: #021F31;
+    border-radius: 10px;
+}
+#file-words-preview::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 10px;
+}
+#file-words-preview div {
+    margin-top: 0.2em;
+    margin-bottom: 1em;
+    cursor: pointer;
+    transition: background-color 0.1s;
+}
+#file-words-preview div:hover {
+    background-color: rgba(255, 0, 0, 0.3);
+}
+#step-2-new, #step-2-open, #step-2-browser {
+    background-color: #021F31;
+    border-radius: 0.3em;
+    /*border: 0.1em solid white;*/
+    width: calc(50% - 0.1em);
+    left: 50%;
+    translate: -50%;
+}
+#word-constructor {
+    background-color: #021F31;
+    border-radius: 0.3em;
+}
+#word-constructor-info {
+    right: 27.5%;
+}
+#file-options {
+    width: 75%;
+    left: 50%;
+    translate: -50%;
+    top: 87.5%;
+    height: 7.5%;
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+#file-options button {
+    padding: 1em 2em;
+    width: 20em;
+    cursor: pointer;
+    border-radius: 0.75em;
+    border: none;
+    font-size: 1rem;
+    z-index: 1;
+    transition: filter 0.3s, scale 0.3s;
+    bottom: 3.5%;
+    position: relative;
+}
+#file-options button::before {
+    width: 20em;
+    height: 2em;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: -1.25em;
+    z-index: 0;
+    font-family: "DynaPuff";
+    color: white;
+    border-radius: 0.75em;
+    text-align: center;
+    padding-top: 1em;
+}
+#file-options button:hover {
+    filter: brightness(1.1);
+    scale: 1.02;
+}
+#remove-file {
+    background-color: rgb(173, 0, 0);
+}
+#remove-file::before {
+    content: var(--remove-text-content, "Odstranit soubor");
+    background-color: red;
+}
+#rename-file, #export-file, #close-file {
+    background-color: rgb(8, 196, 33);
+}
+#rename-file::before, #export-file::before, #close-file::before {
+    background-color: rgb(6, 223, 35);
+}
+#rename-file::before {
+    content: "Přejmenovat soubor";
+}
+#export-file::before {
+    content: "Exportovat soubor jako .json";
+}
+#close-file::before {
+    content: "Zavřít";
+}
+#home-return {
+    left: 50%;
+    translate: -50%;
+    bottom: -25%;
+}
+#home-return::before {
+    content: "Zpátky";
+}
+#terms-of-use {
+    position: absolute;
+    font-size: 1rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    color: rgba(125, 125, 125, 0.7);
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+    border-top: rgba(125, 125, 125, 0.7) 2px solid;
+    border-bottom: rgba(125, 125, 125, 0.7) 2px solid;
+    font-family: "DynaPuff";
+}
+
+@media (width < 800px) {
+    #file-opener, #word-constructor, #word-preview {
+        width: 90%;
+        height: 80%;
+    }
+    #word-constructor, #word-preview {
+        height: 35%;
+    }
+    #step-1-left, #step-1-right, #step-2-chose-left, #step-2-chose-right {
+        width: calc(100% - 0.1em);
+        height: calc(50% - 0.1em);
+    }
+    #step-1-right, #step-2-chose-right {
+        top: 50%;
+        left: 0;
+    }
+    #step-2-new, #step-2-open, #step-2-browser {
+        height: calc(50% - 0.1em);
+        left: 0;
+        width: 100%;
+        translate: 0;
+    }
+    #step-2-new p, #step-2-open p, #step-2-browser p {
+        width: 80%;
+        text-align: center;
+    }
+    #step-2-open input {
+        width: 60%;
+    }
+    #step-2-browser select {
+        top: 50%;
+    }
+    #cz-word, #de-word {
+        width: 80%;
+    }
+    #priority {
+        width: 30%;
+    }
+    #priority input {
+        margin-left: 2em;
+    }
+    #word-constructor-info {
+        display: none;
+    }
+    #word-preview-header {
+        width: 100%;
+        text-align: center;
+    }
+    #file-words-preview {
+        height: 75%;
+        top: 20%;
+        width: 90%;
+    }
+    #file-options {
+        width: 90%;
+        top: 90%;
+    }
+    #file-options button {
+        width: 22.5%;
+    }
+    #file-options button::before {
+        width: 100%;
+        height: 98%;
+        font-size: 0.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        justify-items: center;
+        border-radius: 1.5em;
+    }
+    #home-return {
+        bottom: -10%;
+    }
+    #terms-of-use {
+        font-size: 0.5rem;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}

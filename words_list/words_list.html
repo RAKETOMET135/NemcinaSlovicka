@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Němčina Slovíčka - Seznam slov</title>
+    <link rel="shortcut icon" type="x-icon" href="../images/WebsiteIcon_larger.png">
+    <link rel="stylesheet" href="words_list.css">
+    <link rel="stylesheet" href="../nav.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div id="nav-logo">
+                <img src="../images/WebsiteIcon_larger.png" alt="">
+                <p id="nav-logo-text">Němčina slovíčka</p>
+            </div>
+            <img id="dark-mode" src="../images/moon.png" alt="">
+        </nav>
+    </header>
+
+    <section id="words-list-preview">
+        <h2 id="words-list-header">Seznam slovíček</h2>
+        <div id="words-list-basic-data">
+            <select name="Lections" id="basic-data"></select>
+        </div>
+        <div id="words-list-words"></div>
+    </section>
+
+    <script src="../loader/data_saver.js" type="module"></script>
+    <script src="../loader/lection_loader.js" type="module"></script>
+    <script src="words_list.js" type="module"></script>
+</body>
+</html>

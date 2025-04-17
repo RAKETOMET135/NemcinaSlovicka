@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="x-icon" href="../images/WebsiteIcon_larger.png">
+    <title>Němčina Slovíčka - Pexeso</title>
+    <link rel="stylesheet" href="../nav.css">
+    <link rel="stylesheet" href="pexeso.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div id="nav-logo">
+                <img src="../images/WebsiteIcon_larger.png" alt="">
+                <p id="nav-logo-text">Němčina slovíčka</p>
+            </div>
+            <img id="dark-mode" src="../images/moon.png" alt="">
+        </nav>
+    </header>
+
+    <section id="game">
+        <div id="game-start">
+            <h1 id="game-start-header">Pexeso</h1>
+            <h2 id="pexeso-select-header">Lekce</h2>
+            <select name="Lekce" id="pexeso-lection-select"></select>
+            <h2 id="pexeso-type-header">Soupeř</h2>
+            <select name="Type" id="pexeso-type-select">
+                <option value="solo" selected>Žádný</option>
+                <option value="computer">Počítač</option>
+                <option value="local-multi">Místní 1v1</option>
+            </select>
+            <button id="start-button"></button>
+        </div>
+        <div id="game-content">
+            <div id="cards"></div>
+            <div id="cards-bottom-gap"></div>
+        </div>
+        <div id="game-score">
+            <h1 id="game-score-header">Pexeso</h1>
+            <h2 id="results-header">Výsledky</h2>
+            <p id="final-game-time">Čas: 0:00</p>
+            <p id="final-game-score">Skóre: 0:00</p>
+            <button id="menu-button"></button>
+        </div>
+    </section>
+
+    <div id="background-helper">
+        <h1 id="background-helper-header">Pexeso</h1>
+        <p id="game-time">Čas: 0:00</p>
+        <p id="player-score">Skóre: 0</p>
+        <p id="current-player">Na řadě: Hráč</p>
+    </div>
+
+    <script src="../structure/random.js" type="module"></script>
+    <script src="../loader/lection_loader.js" type="module"></script>
+    <script src="../structure/word.js" type="module"></script>
+    <script src="pexeso.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Němčina Slovíčka - Vlastní slovíčka</title>
+    <link rel="shortcut icon" type="x-icon" href="../images/WebsiteIcon_larger.png">
+    <link rel="stylesheet" href="../nav.css">
+    <link rel="stylesheet" href="words_creator.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div id="nav-logo">
+                <img src="../images/WebsiteIcon_larger.png" alt="">
+                <p id="nav-logo-text">Němčina slovíčka</p>
+            </div>
+            <img id="dark-mode" src="../images/moon.png" alt="">
+        </nav>
+    </header>
+
+    <section id="word-constructor">
+        <h1 id="word-constructor-header">Tvorba slovíček</h1>
+        <div id="cz-word">
+            <p>CZ:</p>
+            <input id="cz-input" type="text">
+        </div>
+        <div id="de-word">
+            <p>DE:</p>
+            <input id="de-input" type="text">
+        </div>
+        <div id="priority">
+            <p>PRIORITY:</p>
+            <input id="priority-input" type="text" placeholder="1">
+        </div>
+        <button id="create-button"></button>
+        <p id="word-constructor-info">Zjednodušení psaní
+            <br>
+            Alt + a -> ä
+            <br>
+            Alt + u -> ü
+            <br>
+            Alt + o -> ö
+            <br>
+            Alt + s -> ß
+            <br>
+        </p>
+    </section>
+
+    <section id="word-preview">
+        <h1 id="word-preview-header">Vytvořená slovíčka</h1>
+        <div id="file-words-preview"></div>
+    </section>
+
+    <section id="file-options">
+        <button id="remove-file"></button>
+        <button id="rename-file"></button>
+        <button id="export-file"></button>
+        <button id="close-file"></button>
+    </section>
+
+    <section id="file-opener">
+        <div id="step-1">
+            <div id="step-1-left">
+                <h2>Vytvořit soubor</h2>
+                <button id="new-file"></button>
+                <p id="new-file-info">Vytvoření nového souboru, který lze upravit a exportovat jako .json soubor. Také lze uložit obsah souboru do prohlížeče.</p>
+            </div>
+            <div id="step-1-right">
+                <h2>Otevřít soubor</h2>
+                <button id="open-file"></button>
+                <p id="open-file-info">Otevřít soubor .json nebo načíst data z úložiště prohlížeče a pokračovat v práci.</p>
+            </div>
+        </div>
+        <div id="step-2-new">
+            <h2 id="step-2-new-main-header">Vytvořit soubor</h2>
+            <p id="step-2-new-header">Název souboru</p>
+            <input id="step-2-new-file-name-input" type="text">
+            <button id="create-new-file"></button>
+        </div>
+        <div id="step-2-chose">
+            <div id="step-2-chose-left">
+                <h2>Otevřít .json soubor</h2>
+                <button id="json-import"></button>
+                <p id="json-import-info">Otevřít .json soubor z disku.</p>
+            </div>
+            <div id="step-2-chose-right">
+                <h2>Načíst z prohlížeče</h2>
+                <button id="browser-import"></button>
+                <p id="browser-import-info">Načíst data z úložiště prohlížeče.</p>
+            </div>
+        </div>
+        <div id="step-2-open">
+            <h2>Otevřít .json soubor</h2>
+            <p id="step-2-open-header">Otevřít .json soubor</p>
+            <input type="file" id="json-file-input" accept=".json">
+            <button id="import-file"></button>
+        </div>
+        <div id="step-2-browser">
+            <h2>Načíst z prohlížeče</h2>
+            <p id="step-2-browser-header">Načíst data z prohlížeče</p>
+            <select name="browser-data-import" id="browser-data"></select>
+            <button id="load-data"></button>
+        </div>
+        <button id="home-return"></button>
+    </section>
+
+    <p id="terms-of-use">Každý si ručí za to, co napíše.</p>
+
+    <script src="../structure/word.js" type="module"></script>
+    <script src="../loader/data_saver.js" type="module"></script>
+    <script src="words_creator.js" type="module"></script>
+</body>
+</html>

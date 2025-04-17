@@ -13,6 +13,9 @@ function checkDarkModeData(){
 
 function checkWordFilesData(){
     let filesData = loadData("wordFiles")
+
+    if (filesData === null) return
+
     filesData = JSON.parse(filesData)
 
     filesData.totalFiles = filesData.files.length

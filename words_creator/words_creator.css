@@ -529,4 +529,7 @@ input[type="file"] {
     #step-1 h2, #step-2-new h2, #step-2-chose h2, #step-2-open h2, #step-2-browser h2 {
         font-size: 1.5rem;
     }
+    #step-1 p, #step-2-new p, #step-2-chose p, #step-2-open p, #step-2-browser p {
+        font-size: 1rem;
+    }
 }

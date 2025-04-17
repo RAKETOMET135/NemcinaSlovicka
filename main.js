@@ -2,33 +2,6 @@ import { loadData, saveData } from "./loader/data_saver.js"
 
 let darkMode = false
 
-function createLoading(){
-    const loadingScreen = document.createElement("div")
-    loadingScreen.style.width = "100%"
-    loadingScreen.style.height = "100%"
-    loadingScreen.style.display = "flex"
-    loadingScreen.style.justifyContent = "center"
-    loadingScreen.style.backgroundColor = "#202628"
-    loadingScreen.style.alignItems = "center"
-    loadingScreen.style.margin = "0"
-    loadingScreen.style.position = "absolute"
-    loadingScreen.style.left = "0"
-    loadingScreen.style.top = "0"
-
-    const loader = document.createElement("div")
-    loader.classList.add("loading-holder")
-    loadingScreen.append(loader)
-
-    for (let i = 0; i < 7; i++){
-        const span = document.createElement("span")
-        loader.append(span)
-    }
-
-    document.body.append(loadingScreen)
-
-    return loadingScreen
-}
-
 function changeMode(){
     const nav = document.querySelector("nav")
     const navLogoText = document.querySelector("#nav-logo-text")
@@ -59,12 +32,6 @@ function changeMode(){
 }
 
 function main(){
-    /*
-    const loadingScreen = createLoading()
-    setTimeout(() => {
-        loadingScreen.style.visibility = "hidden"
-    }, 2000)
-    */
     const pexesoButton = document.querySelector("#pexeso-button")
     pexesoButton.addEventListener("click", () => {
         window.location.href = "pexeso/pexeso.html"
@@ -125,28 +92,6 @@ function main(){
     })
 
     changeMode()
-
-    const infoSection = document.querySelector("#info-section")
-    window.addEventListener("scroll", () => {
-        /*
-        const scrollY = window.scrollY
-
-        if (scrollY <= window.innerHeight/4 + window.innerHeight){
-            document.body.style.backgroundColor = "rgba(52, 188, 252, 0)"
-        }
-        else {
-            let opacity = window.innerHeight + window.innerHeight/4 + window.innerHeight - scrollY
-            opacity /= 900
-            opacity = 1 - opacity
-
-            if (opacity > 1){
-                opacity = 0
-            }
-
-            document.body.style.backgroundColor = `rgba(52, 188, 252, ${opacity})`
-        }
-        */
-    })
 }
 
 main()

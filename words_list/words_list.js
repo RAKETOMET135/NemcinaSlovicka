@@ -1,4 +1,4 @@
-import { loadLection, getLectionFileNames, updateHTMLSelect } from "../loader/lection_loader.js"
+import { loadLection, updateHTMLSelect } from "../loader/lection_loader.js"
 import { saveData, loadData } from "../loader/data_saver.js"
 
 const wordsRange = document.querySelector("#basic-data")

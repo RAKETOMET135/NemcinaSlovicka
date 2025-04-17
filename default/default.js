@@ -1,5 +1,8 @@
 import { loadLection, getLectionFileNames, updateHTMLSelect } from "../loader/lection_loader.js"
 import { saveData, loadData } from "../loader/data_saver.js"
+import { DataHolder } from "../structure/data_holder.js"
+
+let dataHolder = new DataHolder("website_data")
 
 const mainSection = document.querySelector("#main-section")
 const helperSection = document.querySelector("#helper-section")
@@ -59,12 +62,20 @@ let streak = 0
 
 let darkMode = false
 
+let sessionDataLoaded = false
+
 function onWordFileLoad(newWordFile){
     currentWordFile = newWordFile
 
     updateStats()
 
     displayNextWord()
+
+    if (sessionDataLoaded) return
+
+    sessionDataLoaded = true
+
+    loadSessionData()
 }
 
 function checkInput(inputString){
@@ -156,13 +167,17 @@ function changeTTS(){
         ttsButton.style.setProperty("--before-image", 'url("../images/NoVoiceIcon.png")')
         repeatWord.style.visibility = "visible"
 
-        sayWord(currentWord)
+        if (currentWord){
+            sayWord(currentWord)
+        }
     }
     else{
         displayWord.style.color = "white"
         ttsButton.style.setProperty("--before-image", 'url("../images/VoiceIcon.png")')
         repeatWord.style.visibility = "hidden"
     }
+
+    dataHolder.updateData("tts", tts)
 }
 
 function updateWordsData(correct){
@@ -324,7 +339,7 @@ function displayNextWord(){
         if (allIncorrectWords.length > 0) pickedWord = allIncorrectWords[Math.floor(Math.random() * allIncorrectWords.length)]
     }
 
-    if (tts){
+    if (tts && sessionDataLoaded){
         sayWord(pickedWord)
     }
 
@@ -421,9 +436,13 @@ function flipWords(){
 
     if (language === "de"){
         language = "cz"
+
+        dataHolder.updateData("flip-words", true)
     }
     else{
         language = "de"
+
+        dataHolder.updateData("flip-words", false)
     }
 
     displayNextWord()
@@ -770,7 +789,67 @@ function changeMode(){
     }
 }
 
+function saveDataHolderData(){
+    dataHolder.saveData()
+
+    let sessionPageData = {
+        wordsList: currentWordFile,
+        wordCategory: currentFileName,
+        wordStreak: streak,
+        wordHint: hint,
+        wordDisplayed: currentWord,
+        submitState: submitState,
+        userText: userInput.value,
+        userTextColor: userInput.style.color,
+        wordCorrect: correctData,
+        wordIncorrect: incorrect,
+        prevWord: prevWord
+    }
+
+    window.sessionStorage.setItem("page_data", JSON.stringify(sessionPageData))
+}
+
+function loadSessionData(){
+    let sessionPageData = window.sessionStorage.getItem("page_data")
+
+    if (sessionPageData === null) return
+
+    sessionPageData = JSON.parse(sessionPageData)
+
+    currentWordFile = sessionPageData.wordsList
+    currentFileName = sessionPageData.wordCategory
+    streak = sessionPageData.wordStreak
+    hint = sessionPageData.wordHint
+    correctData = sessionPageData.wordCorrect
+    incorrect = sessionPageData.wordIncorrect
+    prevWord = sessionPageData.prevWord
+    userInput.value = sessionPageData.userText
+    userInput.style.color = sessionPageData.userTextColor
+
+    updateStats()
+
+    wordsRange.value = currentFileName
+
+    currentWord = sessionPageData.wordDisplayed
+
+    if (language === "de"){
+        displayWord.innerText = currentWord.czWord
+    }
+    else{
+        displayWord.innerText = currentWord.deWord
+    }
+
+    submitState = sessionPageData.submitState
+
+    if (submitState === "submitted"){
+        userInput.readOnly = true
+        submitButton.style.setProperty("--before-content", '"➔"')
+    }
+}
+
 function main(){
+    dataHolder.loadData()
+
     const navLogo = document.querySelector("#nav-logo")
     navLogo.addEventListener("click", () => {
         window.location.href = "../index.html"
@@ -826,6 +905,8 @@ function main(){
             oUmlautButton.style.setProperty("--before-o", '"ö"')
             uUmlautButton.style.setProperty("--before-u", '"ü"')
         }
+
+        dataHolder.updateData("upper-case", upperCase)
     })
     skipCorrectAnswerButton.addEventListener("click", () => {
         skipCorrectAnswer = !skipCorrectAnswer
@@ -836,14 +917,65 @@ function main(){
         else{
             skipCorrectAnswerButton.style.setProperty("--before-skip", '"≪"')
         }
+
+        dataHolder.updateData("skip-correct-answer", skipCorrectAnswer)
     })
     hintButton.addEventListener("click", giveHint)
     flipWordsButton.addEventListener("click", flipWords)
     wordsListButton.addEventListener("click", openWordListPreview)
     wordsListButton2.addEventListener("click", closeWordListPreview)
 
+    let upperCaseData = dataHolder.getDataEntries("upper-case")
+    if (upperCaseData.length > 0){
+        if (upperCaseData[0][1]){
+            upperCase = true
+            aUmlautButton.style.setProperty("--before-a", '"Ä"')
+            oUmlautButton.style.setProperty("--before-o", '"Ö"')
+            uUmlautButton.style.setProperty("--before-u", '"Ü"')
+        }
+    }
+    else {
+        dataHolder.addData("upper-case", false)
+    }
+
+    let skipCorrectAnswerData = dataHolder.getDataEntries("skip-correct-answer")
+    if (skipCorrectAnswerData.length > 0){
+        if (skipCorrectAnswerData[0][1]){
+            skipCorrectAnswer = true
+            skipCorrectAnswerButton.style.setProperty("--before-skip", '"||"')
+        }
+    }
+    else {
+        dataHolder.addData("skip-correct-answer", false)
+    }
+
+    let flipWordsData = dataHolder.getDataEntries("flip-words")
+    if (flipWordsData.length > 0){
+        if (flipWordsData[0][1]){
+            if (language === "de"){
+                language = "cz"
+            }
+            else{
+                language = "de"
+            }
+        }
+    }
+    else {
+        dataHolder.addData("flip-words", false)
+    }
+
     speachText.volume = 1
     repeatWord.style.visibility = "hidden"
+
+    let ttsData = dataHolder.getDataEntries("tts")
+    if (ttsData.length > 0){
+        if (ttsData[0][1]){
+            changeTTS()
+        }
+    }
+    else {
+        dataHolder.addData("tts", false)
+    }
 
     const lections = getLectionFileNames()
     const primaryLection = lections[0]
@@ -888,6 +1020,13 @@ function main(){
     })
 
     changeMode()
+
+    window.addEventListener("beforeunload", saveDataHolderData)
+    document.addEventListener("visibilitychange", saveDataHolderData)
+
+    setTimeout(() => {
+        saveDataHolderData()
+    }, 300000)
 }
 
 main()

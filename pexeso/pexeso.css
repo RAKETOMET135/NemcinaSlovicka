@@ -289,7 +289,6 @@ body::-webkit-scrollbar-thumb {
     #cards {
         overflow-y: auto;
         width: 95%;
-        border: 2px solid red;
     }
     .card {
         width: 5em;

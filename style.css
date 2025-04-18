@@ -308,11 +308,17 @@ body::-webkit-scrollbar-thumb {
     cursor: default;
 }
 
-@media (width < 800px) {
-    body {
-        overflow-y: hidden;
-    }
+#l-0 {
+    top: 110%;
+}
+#l-1 {
+    top: 180%;
+}
+#l-2 {
+    top: 250%;
+}
 
+@media (width < 800px) {
     #main-section {
         flex-direction: column;
         width: 100%;
@@ -338,6 +344,9 @@ body::-webkit-scrollbar-thumb {
     #main-bottom {
         bottom: 0;
     }
+    #main-image-div {
+        scale: 0.9;
+    }
     .learn-section {
         flex-direction: column;
         height: 80%;
@@ -354,28 +363,81 @@ body::-webkit-scrollbar-thumb {
         margin-left: 1em;
         margin-right: 1em;
     }
-    #l-1 {
-        translate: 0 80%;
+    #l-0 {
+        top: 90%;
+        flex-direction: column-reverse;
     }
-    #l-1 img {
-        width: 100%;
+    #l-0 p {
+        font-size: 1.5rem;
+        margin-top: 75%;
+    }
+    #l-0-image {
+        scale: 0.9;
+        translate: 0 27.5%;
+    }
+    #pexeso-button {
+        margin-top: 6em;
+    }
+    #l-0-content {
+        translate: 0 -47.5%;
+    }
+    #l-1 {
+        top: 165%;
+    }
+    #l-1-image {
+        scale: 0.9;
+        translate: 0 15%;
+    }
+    #l-1-image img {
+        width: 125%;
     }
     #l-1 p {
-        translate: 0 -240%;
+        font-size: 1.5rem;
+        translate: 0 20%;
     }
     #l-2 {
-        translate: 0 55%;
+        flex-direction: column-reverse;
+    }
+    #l-2-image {
+        translate: 0 10%;
+        scale: 1.1;
+    }
+    #l-2-content {
+        translate: 0 -10%;
+    }
+    #l-2 p {
+        font-size: 1.5rem;
     }
     #contact {
-        translate: 0 175%;
+        top: 360%;
+        height: 225%;
     }
     #decor {
         translate: 0 1%;
+        width: 100%;
+        background-size: 200% 100%;
     }
     
+    #website-content {
+        display: flex;
+        flex-direction: column;
+        top: 1.5%;
+        gap: 5%;
+    }
+    #website-content > div {
+        position: relative;
+        width: 95%;
+        left: 0;
+    } 
+
     section {
         width: 100%;
         overflow-x: hidden;
         overflow-y: hidden;
+    }
+
+    #contact {
+        overflow-y: visible;
+        overflow-x: visible;
     }
 }

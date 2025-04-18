@@ -318,6 +318,22 @@ body::-webkit-scrollbar-thumb {
     top: 250%;
 }
 
+#website-content {
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+    background-color: #021F31;
+    width: 100%;
+    left: 0;
+}
+#website-content > div {
+    position: relative;
+    height: fit-content;
+    left: 0;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
 @media (width < 800px) {
     #main-section {
         flex-direction: column;
@@ -423,20 +439,22 @@ body::-webkit-scrollbar-thumb {
     }
     
     #website-content {
-        display: flex;
         flex-direction: column;
         top: 1.5%;
         gap: 5%;
         width: 100%;
         left: 0;
         background-color: #021F31;
+        height: 80%;
     }
     #website-content > div {
-        position: relative;
         width: 100%;
         left: 0;
         background-color: #021F31;
-    } 
+        height: 100%;
+        margin-left: 0;
+        margin-left: 0;
+    }
 
     section {
         width: 100%;

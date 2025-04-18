@@ -130,5 +130,6 @@ body {
     }
     #words-count {
         width: 85%;
+        bottom: 10%;
     }
 }

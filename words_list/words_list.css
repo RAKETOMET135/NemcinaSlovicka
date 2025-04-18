@@ -130,6 +130,7 @@ body {
     }
     #words-count {
         width: 85%;
-        bottom: 10%;
+        top: auto;
+        bottom: -7.5%;
     }
 }

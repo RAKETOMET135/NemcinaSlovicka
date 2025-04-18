@@ -2,6 +2,7 @@ import { loadLection, updateHTMLSelect } from "../loader/lection_loader.js"
 import { saveData, loadData } from "../loader/data_saver.js"
 
 const wordsRange = document.querySelector("#basic-data")
+const wordsCount = document.querySelector("#words-count")
 
 let darkMode = false
 let currentFileName = ""
@@ -53,6 +54,8 @@ function addListWordsToPreview(){
         let zima2 = document.createElement("br")
         wordElement.append(zima2)
     }
+
+    wordsCount.innerText = `Celkem slovíček: ${words.length}`
 }
 
 function changeMode(){

@@ -322,7 +322,8 @@ body {
     position: absolute;
     top: 26.5%;
     height: 2em;
-    left: 68%;
+    left: 50%;
+    translate: 320% -120%;
 }
 #words-list-button, #words-list-button2 {
     position: absolute;
@@ -478,5 +479,6 @@ body {
     #all-words-seen-mark {
         left: auto;
         right: 0%;
+        translate: 0;
     }
 }

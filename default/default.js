@@ -304,6 +304,10 @@ function displayNextWord(){
 
         wordChance *= thisWord.priority
 
+        if (thisWord.timesDisplayed <= 0){
+            wordChance *= 100000
+        }
+
         thisWord.chance = wordChance
         totalWordChance += wordChance
     }

@@ -94,6 +94,22 @@ body {
 #words-list-words span {
     font-family: "DynaPuff";
 }
+#words-count {
+    position: absolute;
+    top: calc(19% + 36em);
+    left: 50%;
+    translate: -50%;
+    width: 25em;
+    background-color: #021F31;
+    border-radius: 0.3em;
+    height: 2em;
+    color: white;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "DynaPuff";
+}
 
 @media (width < 800px) {
     #words-list-preview h2 {
@@ -111,5 +127,8 @@ body {
         width: 85%;
         top: 20%;
         height: 80%;
+    }
+    #words-count {
+        width: 85%;
     }
 }

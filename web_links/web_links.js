@@ -26,10 +26,10 @@ function main(){
         window.location.href = "../index.html"
     })
 
-    const standartButton = document.querySelector("#standart-button")
-    const pexesoButton = document.querySelector("#pexeso-button")
-    const wordsListButton = document.querySelector("#words-list-button")
-    const customeWordsButton = document.querySelector("#custome-words-button")
+    const standartButton = document.querySelector("#standart-card")
+    const pexesoButton = document.querySelector("#pexeso-card")
+    const wordsListButton = document.querySelector("#words-list-card")
+    const customeWordsButton = document.querySelector("#custome-words-card")
 
     standartButton.addEventListener("click", () => {
         window.location.href = "../default/default.html"

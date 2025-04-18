@@ -44,24 +44,34 @@ body::-webkit-scrollbar-thumb {
 }
 #links > div {
     width: 22%;
-    height: 90%;
+    height: 65%;
     position: relative;
     background-color: #021F31;
-    border-radius: 0.3em;
-    transition: scale 0.3s;
+    border-radius: 0.6em;
+    transition: scale 0.3s, background-color 0.3s;
+    cursor: pointer;
 }
 #links > div:hover {
     scale: 1.01;
+    background-color: #043350;
 }
 #links > div h1 {
     color: white;
-    font-size: 2.5rem;
+    font-size: 2.25rem;
     font-family: "DynaPuff";
     text-align: center;
     margin-top: 0.5em;
     position: absolute;
     width: 90%;
     left: 5%;
+    background-color: #043350;
+    height: 2.5em;
+    border-radius: 0.3em;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    transition: background-color 0.3s;
 }
 #links > div p {
     color: white;
@@ -70,10 +80,11 @@ body::-webkit-scrollbar-thumb {
     text-align: justify;
     hyphens: auto;
     text-align-last: left;
-    width: 90%;
-    left: 5%;
+    width: 85%;
+    left: 50%;
+    translate: -50%;
     position: absolute;
-    margin-top: 5em;
+    margin-top: 10em;
 }
 #links > div button {
     padding: 1em 2em;
@@ -89,6 +100,7 @@ body::-webkit-scrollbar-thumb {
     font-size: 1rem;
     z-index: 1;
     transition: filter 0.3s, scale 0.3s;
+    visibility: hidden;
 }
 #links > div button::before {
     content: "Vyzkoušet";
@@ -127,9 +139,9 @@ body::-webkit-scrollbar-thumb {
         font-size: 2rem;
     }
     #links > div p {
-        top: 50%;
+        top: calc(5.25em + 10%);
         left: 50%;
         margin-top: 0;
-        translate: -50% -50%;
+        translate: -50%;
     }
 }

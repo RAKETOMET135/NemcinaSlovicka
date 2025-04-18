@@ -349,8 +349,9 @@ body::-webkit-scrollbar-thumb {
     }
     .learn-section {
         flex-direction: column;
-        height: 80%;
+        height: 100%;
         margin-top: 25%;
+        overflow-y: hidden;
     }
     .learn-section div {
         translate: 0 -35%;
@@ -438,7 +439,6 @@ body::-webkit-scrollbar-thumb {
     section {
         width: 100%;
         overflow-x: hidden;
-        overflow-y: visible;
     }
 
     #contact {

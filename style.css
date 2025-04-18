@@ -413,7 +413,7 @@ body::-webkit-scrollbar-thumb {
     }
     #contact {
         top: 425%;
-        height: 225%;
+        height: 190%;
     }
     #decor {
         translate: 0 1%;
@@ -426,6 +426,9 @@ body::-webkit-scrollbar-thumb {
         flex-direction: column;
         top: 1.5%;
         gap: 5%;
+        width: 100%;
+        left: 0;
+        background-color: #021F31;
     }
     #website-content > div {
         position: relative;
@@ -436,7 +439,7 @@ body::-webkit-scrollbar-thumb {
     section {
         width: 100%;
         overflow-x: hidden;
-        overflow-y: hidden;
+        overflow-y: visible;
     }
 
     #contact {

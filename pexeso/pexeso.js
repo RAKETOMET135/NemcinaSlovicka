@@ -148,6 +148,7 @@ class Computer{
 }
 
 const backgroundHelper = document.querySelector("#background-helper")
+const pexesoSizeInput = document.querySelector("#pexeso-size-input")
 
 const gameTime = document.querySelector("#game-time")
 const gameScore = document.querySelector("#player-score")
@@ -168,7 +169,27 @@ let multiPlayer = 1
 let darkMode = false
 
 function onLectionLoad(wordList){
-    startGame(wordList)
+    let userSizeInput = pexesoSizeInput.value
+    userSizeInput = parseInt(userSizeInput)
+    
+    if (!userSizeInput || userSizeInput >= wordList.length){
+        startGame(wordList)
+    }
+    else {
+        let wordListMod = []
+
+        for (let i = wordList.length - 1; i > 0; i--){
+            const j = Math.floor(Math.random() * (i + 1))
+
+            let temp = wordList[i]
+            wordList[i] = wordList[j]
+            wordList[j] = temp
+        }
+
+        wordListMod = wordList.slice(0, userSizeInput)
+
+        startGame(wordListMod)
+    }
 }
 
 function setGameVisibility(visibility){
@@ -481,6 +502,7 @@ function changeMode(){
     const gameStartHeader = document.querySelector("#game-start-header")
     const pexesoSelectHeader = document.querySelector("#pexeso-select-header")
     const pexesoTypeHeader = document.querySelector("#pexeso-type-header")
+    const pexesoSizeHeader = document.querySelector("#pexeso-size-header")
     const backgroundHelperHeader = document.querySelector("#background-helper-header")
     const gameScoreHeader = document.querySelector("#game-score-header")
     const gameResultsHeader = document.querySelector("#results-header")
@@ -494,6 +516,7 @@ function changeMode(){
         gameStartHeader.style.color = "white"
         pexesoSelectHeader.style.color = "white"
         pexesoTypeHeader.style.color = "white"
+        pexesoSizeHeader.style.color = "white"
         backgroundHelperHeader.style.color = "white"
         gameTime.style.color = "white"
         gameScore.style.color = "white"
@@ -519,6 +542,7 @@ function changeMode(){
         gameStartHeader.style.color = "#021F31"
         pexesoSelectHeader.style.color = "#021F31"
         pexesoTypeHeader.style.color = "#021F31"
+        pexesoSizeHeader.style.color = "#021F31"
         backgroundHelperHeader.style.color = "#021F31"
         gameTime.style.color = "#021F31"
         gameScore.style.color = "#021F31"
@@ -539,12 +563,25 @@ function changeMode(){
     }
 }
 
+function onLectionSelectChange(){
+    const pexesoLectionSelect = document.querySelector("#pexeso-lection-select")
+
+    loadLection("..", pexesoLectionSelect.value, updateSizeInputPlaceholder)
+}
+
+function updateSizeInputPlaceholder(wordList){
+    pexesoSizeInput.placeholder = wordList.length.toString()
+}
+
 function main(){
     setGameVisibility(["visible", "hidden", "hidden"])
 
     const pexesoLectionSelect = document.querySelector("#pexeso-lection-select")
 
     updateHTMLSelect(pexesoLectionSelect)
+
+    onLectionSelectChange()
+    pexesoLectionSelect.addEventListener("change", onLectionSelectChange)
 
     const navLogo = document.querySelector("#nav-logo")
     navLogo.addEventListener("click", () => {

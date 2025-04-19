@@ -97,6 +97,25 @@ body::-webkit-scrollbar-thumb {
     top: 9.2em;
 }
 
+#pexeso-size-header {
+    top: 12.2em;
+}
+#pexeso-size-input {
+    position: absolute;
+    left: 50%;
+    translate: -50%;
+    top: 13.4em;
+    outline: none;
+    border: none;
+    color: white;
+    background-color: #021F31;
+    font-family: "DynaPuff";
+    font-size: 1.5rem;
+    width: 5em;
+    border-radius: 0.3em;
+    text-align: center;
+}
+
 #start-button, #menu-button {
     padding: 1em 2em;
     width: 20em;
@@ -308,5 +327,9 @@ body::-webkit-scrollbar-thumb {
     }
     #final-game-score {
         top: 45%;
+    }
+    #pexeso-size-header {
+        text-align: center;
+        width: 100%;
     }
 }

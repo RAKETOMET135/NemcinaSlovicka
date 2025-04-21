@@ -33,9 +33,13 @@ const homeReturnButton = document.querySelector("#home-return")
 
 const step2newMainHeader = document.querySelector("#step-2-new-main-header")
 const step2input = document.querySelector("#step-2-new-file-name-input")
-
+const step2lang1 = document.querySelector("#step-2-new-lang-name-input-1")
+const step2lang2 = document.querySelector("#step-2-new-lang-name-input-2")
+const langText1 = document.querySelector("#lang-text-1")
+const langText2 = document.querySelector("#lang-text-2")
 
 let data
+let sessionPageData = null
 
 let currentFileName = ""
 let currentFileContent = []
@@ -44,12 +48,26 @@ let currentFileObject = NaN
 let darkMode
 let renameMode = false
 
-function createNewWordFile(name){
+function createNewWordFile(name, lang){
     data.totalFiles += 1
+
+    let lang1 = "CZ"
+    let lang2 = "DE"
+
+    if (lang){
+        if (lang[0] !== ""){
+            lang1 = lang[0]
+        }
+        if (lang[1] !== ""){
+            lang2 = lang[1]
+        }
+    }
 
     const fileObject = {
         fileName: name,
-        content: currentFileContent
+        content: currentFileContent,
+        lang1: lang1,
+        lang2: lang2
     }
 
     data.files.push(fileObject)
@@ -71,6 +89,49 @@ function updateWordFileData(){
     }
 }
 
+function checkSessionData(operation, newWord){
+    if (!sessionPageData){
+        sessionPageData = window.sessionStorage.getItem("page_data")
+        sessionPageData = JSON.parse(sessionPageData)
+
+        if (sessionPageData){
+            let thisFileIndex = -1
+
+            for (let i = 0; i < data.files.length; i++){
+                const thisFile = data.files[i]
+
+                if (thisFile.fileName !== currentFileName) continue
+
+                thisFileIndex = i
+            }
+
+            if (sessionPageData.wordCategory === thisFileIndex.toString()){
+                if (operation === "add"){
+                    sessionPageData.wordsList.push(newWord)
+                }
+                else if (operation === "remove"){
+                    let wordsListMod = []
+
+                    for (let i = 0; i < sessionPageData.wordsList.length; i++){
+                        const thisWord = sessionPageData.wordsList[i]
+
+                        if (thisWord.czWord === newWord.czWord && thisWord.deWord === newWord.deWord) continue
+
+                        wordsListMod.push(thisWord)
+                    }
+
+                    sessionPageData.wordsList = wordsListMod
+                }
+
+                let sessionPageDataJSONString = JSON.stringify(sessionPageData)
+                window.sessionStorage.setItem("page_data", sessionPageDataJSONString)
+
+                sessionPageData = null
+            }
+        }
+    }
+}
+
 function createNewWord(){
     const czInput = document.querySelector("#cz-input")
     const deInput = document.querySelector("#de-input")
@@ -86,6 +147,8 @@ function createNewWord(){
     const newWord = new word(czText, deText, NaN, NaN, priority)
     
     currentFileContent.push(newWord)
+
+    checkSessionData("add", newWord)
 
     czInput.value = ""
     deInput.value = ""
@@ -127,6 +190,19 @@ function updateWordPreview(){
         wordsContainer.firstChild.remove()
     }
 
+    let lang1 = "CZ"
+    let lang2 = "DE"
+
+    if (currentFileObject.lang1){
+        lang1 = currentFileObject.lang1
+    }
+    if (currentFileObject.lang2){
+        lang2 = currentFileObject.lang2
+    }
+
+    langText1.innerText = lang1 + ":"
+    langText2.innerText = lang2 + ":"
+
     for (let i = 0; i < currentFileContent.length; i++){
         const thisWord = currentFileContent[i]
 
@@ -137,7 +213,7 @@ function updateWordPreview(){
         wordElement.append(czSpan)
         czSpan.style.color = "purple"
         czSpan.style.fontWeight = "bold"
-        czSpan.innerText = "CZ: "
+        czSpan.innerText = `${lang1}: `
         let czWordSpan = document.createElement("span")
         wordElement.append(czWordSpan)
         czWordSpan.style.color = "white"
@@ -150,7 +226,7 @@ function updateWordPreview(){
         wordElement.append(deSpan)
         deSpan.style.color = "purple"
         deSpan.style.fontWeight = "bold"
-        deSpan.innerText = " DE: "
+        deSpan.innerText = ` ${lang2}: `
         let deWordSpan = document.createElement("span")
         wordElement.append(deWordSpan)
         deWordSpan.style.color = "white"
@@ -195,6 +271,8 @@ function removeWordFromFileContent(wordData){
     currentFileContent.splice(wordDataIndex, 1)
 
     currentFileObject.content = currentFileContent
+
+    checkSessionData("remove", wordData)
 
     updateWordPreview()
 }
@@ -281,7 +359,7 @@ function changeMode(){
     }
 }
 
-function renameFile(newFileName){
+function renameFile(newFileName, lang){
     if (currentFileName === "") return
     if (!data) return
     if (data.files === undefined) return
@@ -298,11 +376,27 @@ function renameFile(newFileName){
 
     if (fileIndex < 0) return
 
+    let lang1 = step2lang1.placeholder
+    let lang2 = step2lang2.placeholder
+
+    if (lang){
+        if (lang[0] !== ""){
+            lang1 = lang[0]
+        }
+        if (lang[1] !== ""){
+            lang2 = lang[1]
+        }
+    }
+
     data.files[fileIndex].fileName = newFileName
+    data.files[fileIndex].lang1 = lang1
+    data.files[fileIndex].lang2 = lang2
     currentFileName = newFileName
 
     const wordPreviewHeader = document.querySelector("#word-preview-header")
     wordPreviewHeader.innerText = "Vytvořená slovíčka (" + currentFileName + ")"
+
+    updateWordPreview()
 }
 
 function removeFile(){
@@ -366,10 +460,14 @@ function main(){
             fileOpener.style.visibility = "hidden"
 
             const userInput = step2input.value
+            const lang1 = step2lang1.value
+            const lang2 = step2lang2.value
 
-            createNewWordFile(userInput)
+            createNewWordFile(userInput, [lang1, lang2])
 
             step2input.value = ""
+            step2lang1.value = ""
+            step2lang2.value = ""
         }
         else {  
             renameMode = false
@@ -384,11 +482,15 @@ function main(){
             wordPreview.style.visibility = "visible"
 
             const userInput = step2input.value
+            const lang1 = step2lang1.value
+            const lang2 = step2lang2.value
             step2input.placeholder = ""
 
-            renameFile(userInput)
+            renameFile(userInput, [lang1, lang2])
 
             step2input.value = ""
+            step2lang1.value = ""
+            step2lang2.value = ""
 
             homeReturnButton.style.visibility = "hidden"
         }
@@ -488,10 +590,22 @@ function main(){
                     importedContent.push(importedWord)
                 }
 
+                let lang1 = "CZ"
+                let lang2 = "DE"
+
+                if (jsonContent.lang1){
+                    lang1 = jsonContent.lang1
+                }
+                if (jsonContent.lang2){
+                    lang2 = jsonContent.lang2
+                }
+
                 data.totalFiles += 1
                 const fileObject = {
                     fileName: selectedJSONFile.name.slice(0, selectedJSONFile.name.length -5),
-                    content: importedContent
+                    content: importedContent,
+                    lang1: lang1,
+                    lang2: lang2
                 }
             
                 data.files.push(fileObject)
@@ -599,7 +713,9 @@ function main(){
 
     exportFileButton.addEventListener("click", () => {
         let object = {
-            words: []
+            words: [],
+            lang1: "CZ",
+            lang2: "DE"
         }
 
         for (let i = 0; i < currentFileContent.length; i++){
@@ -622,6 +738,13 @@ function main(){
             }
 
             object.words.push(partObject)
+        }
+
+        if (currentFileObject.lang1){
+            object.lang1 = currentFileObject.lang1
+        }
+        if (currentFileObject.lang2){
+            object.lang2 = currentFileObject.lang2
         }
 
         try {
@@ -651,6 +774,21 @@ function main(){
 
         step2input.placeholder = currentFileName
         step2input.value = currentFileName
+
+        let lang1 = "CZ"
+        let lang2 = "DE"
+
+        if (currentFileObject.lang1){
+            lang1 = currentFileObject.lang1
+        }
+        if (currentFileObject.lang2){
+            lang2 = currentFileObject.lang2
+        }
+
+        step2lang1.placeholder = lang1
+        step2lang1.value = lang1
+        step2lang2.placeholder = lang2
+        step2lang2.value = lang2
 
         renameMode = true
 

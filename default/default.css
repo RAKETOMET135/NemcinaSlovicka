@@ -439,6 +439,14 @@ body {
 #words-list-button2 {
     top: 100.1%;
 }
+#cur-lang-text {
+    position: absolute;
+    left: 50%;
+    translate: -50%;
+    bottom: 0;
+    font-family: "DynaPuff";
+    color: #054064;
+}
 
 @media (width < 800px) {
     #display, #input, #helper-section, #stats-section {

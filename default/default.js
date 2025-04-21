@@ -22,6 +22,7 @@ const wordsRange = document.querySelector("#words-range")
 const allWordsSeenMark = document.querySelector("#all-words-seen-mark")
 const wordsListButton = document.querySelector("#words-list-button")
 const wordsListButton2 = document.querySelector("#words-list-button2")
+const curLangText = document.querySelector("#cur-lang-text")
 
 const aUmlautButton = document.querySelector("#a-umlaut-button")
 const oUmlautButton = document.querySelector("#o-umlaut-button")
@@ -43,6 +44,8 @@ let prevWord
 let currentWord
 let hint = ""
 let language = "de"
+let lang1 = "CZ"
+let lang2 = "DE"
 
 let skipCorrectAnswer = false
 let submitState = "submit"
@@ -61,11 +64,31 @@ let incorrect = 0
 let streak = 0
 
 let darkMode = false
+let allWordsSeenMarkVisible = false
 
 let sessionDataLoaded = false
 
-function onWordFileLoad(newWordFile){
+function onWordFileLoad(newWordFile, lang){
     currentWordFile = newWordFile
+
+    lang1 = "CZ"
+    lang2 = "DE"
+
+    if (lang){
+        if (lang[0] !== ""){
+            lang1 = lang[0]
+        }
+        if (lang[1] !== ""){
+            lang2 = lang[1]
+        }
+    }
+
+    if (language === "de"){
+        curLangText.innerText = `${lang1} -> ${lang2}`
+    }
+    else {
+        curLangText.innerText = `${lang2} -> ${lang1}`
+    }
 
     updateStats()
 
@@ -147,16 +170,18 @@ function checkInput(inputString){
 function sayWord(usedWord){
     window.speechSynthesis.cancel()
 
-    if (language === "de"){
+    if (language === "de" && usedWord.czWord){
         speachText.text = usedWord.czWord
         speachText.lang = "cs-CS"
+
+        window.speechSynthesis.speak(speachText)
     }
-    else{
+    else if(usedWord.deWord){
         speachText.text = usedWord.deWord
         speachText.lang = "de-DE"
-    }
 
-    window.speechSynthesis.speak(speachText)
+        window.speechSynthesis.speak(speachText)
+    }
 }
 
 function changeTTS(){
@@ -343,12 +368,20 @@ function displayNextWord(){
         if (allIncorrectWords.length > 0) pickedWord = allIncorrectWords[Math.floor(Math.random() * allIncorrectWords.length)]
     }
 
+    if (!pickedWord){
+        displayNextWord()
+
+        return
+    }
+
     if (tts && sessionDataLoaded){
         sayWord(pickedWord)
     }
 
     for (let i = 0; i < currentWordFile.length; i++){
         const thisWord = currentWordFile[i]
+        
+        if (!pickedWord) continue
 
         if (thisWord.czWord === pickedWord.czWord){
             currentWordFile[i].timesDisplayed += 1
@@ -447,6 +480,13 @@ function flipWords(){
         language = "de"
 
         dataHolder.updateData("flip-words", false)
+    }
+
+    if (language === "de"){
+        curLangText.innerText = `${lang1} -> ${lang2}`
+    }
+    else {
+        curLangText.innerText = `${lang2} -> ${lang1}`
     }
 
     displayNextWord()
@@ -631,7 +671,7 @@ function addListWordsToPreview(){
         wordElement.append(czSpan)
         czSpan.style.color = "purple"
         czSpan.style.fontWeight = "bold"
-        czSpan.innerText = "CZ: "
+        czSpan.innerText = `${lang1}: `
         let czWordSpan = document.createElement("span")
         wordElement.append(czWordSpan)
         czWordSpan.style.color = "white"
@@ -644,7 +684,7 @@ function addListWordsToPreview(){
         wordElement.append(deSpan)
         deSpan.style.color = "purple"
         deSpan.style.fontWeight = "bold"
-        deSpan.innerText = " DE: "
+        deSpan.innerText = ` ${lang2}: `
         let deWordSpan = document.createElement("span")
         wordElement.append(deWordSpan)
         deWordSpan.style.color = "white"
@@ -756,6 +796,14 @@ function openWordListPreview(){
     statsSection.style.visibility = "hidden"
     selectionSection.style.visibility = "hidden"
 
+    if (allWordsSeenMark.style.visibility === "visible"){
+        allWordsSeenMark.style.visibility = "hidden"
+        allWordsSeenMarkVisible = true
+    }
+    else {
+        allWordsSeenMarkVisible = false
+    }
+
     wordsListPreviewSection.style.visibility = "visible"
 
     displayWordsListUserStats()
@@ -767,6 +815,10 @@ function closeWordListPreview(){
     helperSection.style.visibility = "visible"
     statsSection.style.visibility = "visible"
     selectionSection.style.visibility = "visible"
+
+    if (allWordsSeenMarkVisible){
+        allWordsSeenMark.style.visibility = "visible"
+    }
 
     wordsListPreviewSection.style.visibility = "hidden"
 }
@@ -783,6 +835,7 @@ function changeMode(){
         navLogoText.style.color = "white"
         wordsRangeHeader.style.color = "white"
         wordsListHeader.style.color = "white"
+        curLangText.style.color = "white"
     }
     else{
         document.body.style.backgroundColor = "#FDFBFD"
@@ -790,6 +843,7 @@ function changeMode(){
         navLogoText.style.color = "#021F31"
         wordsRangeHeader.style.color = "#021F31"
         wordsListHeader.style.color = "#021F31"    
+        curLangText.style.color = "#054064"
     }
 }
 
@@ -807,7 +861,9 @@ function saveDataHolderData(){
         userTextColor: userInput.style.color,
         wordCorrect: correctData,
         wordIncorrect: incorrect,
-        prevWord: prevWord
+        prevWord: prevWord,
+        lang1: lang1,
+        lang2: lang2
     }
 
     window.sessionStorage.setItem("page_data", JSON.stringify(sessionPageData))
@@ -829,6 +885,20 @@ function loadSessionData(){
     prevWord = sessionPageData.prevWord
     userInput.value = sessionPageData.userText
     userInput.style.color = sessionPageData.userTextColor
+
+    if (sessionPageData.lang1){
+        lang1 = sessionPageData.lang1
+    }
+    if (sessionPageData.lang2){
+        lang2 = sessionPageData.lang2
+    }
+
+    if (language === "de"){
+        curLangText.innerText = `${lang1} -> ${lang2}`
+    }
+    else {
+        curLangText.innerText = `${lang2} -> ${lang1}`
+    }
 
     updateStats()
 

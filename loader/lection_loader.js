@@ -119,7 +119,17 @@ export function loadLection(webRootPath, fileName, onLoadFunction){
 
             if (wordList.length <= 0) return
 
-            onLoadFunction(wordList)
+            let lang1 = "CZ"
+            let lang2 = "DE"
+
+            if (fileData.lang1){
+                lang1 = fileData.lang1
+            }
+            if (fileData.lang2){
+                lang2 = fileData.lang2
+            }
+
+            onLoadFunction(wordList, [lang1, lang2])
 
             break
         }
@@ -143,7 +153,17 @@ export function loadLection(webRootPath, fileName, onLoadFunction){
                 wordList.push(new word(fileWord.cz, fileWord.de, fileWord.alt, fileWord.alt2, fileWord.priority))
             }
 
-            onLoadFunction(wordList)
+            let lang1 = "CZ"
+            let lang2 = "DE"
+
+            if (data.lang1){
+                lang1 = data.lang1
+            }
+            if (data.lang2){
+                lang2 = data.lang2
+            }
+
+            onLoadFunction(wordList, [lang1, lang2])
         }
     }
 }

@@ -7,9 +7,23 @@ const wordsCount = document.querySelector("#words-count")
 let darkMode = false
 let currentFileName = ""
 let words = NaN
+let lang1 = "CZ"
+let lang2 = "DE"
 
-function displayWords(wordsList){
+function displayWords(wordsList, lang){
     words = wordsList
+
+    lang1 = "CZ"
+    lang2 = "DE"
+
+    if (lang){
+        if (lang[0] !== ""){
+            lang1 = lang[0]
+        }
+        if (lang[1] !== ""){
+            lang2 = lang[1]
+        }
+    }
 
     addListWordsToPreview()
 }
@@ -32,7 +46,7 @@ function addListWordsToPreview(){
         wordElement.append(czSpan)
         czSpan.style.color = "purple"
         czSpan.style.fontWeight = "bold"
-        czSpan.innerText = "CZ: "
+        czSpan.innerText = `${lang1}: `
         let czWordSpan = document.createElement("span")
         wordElement.append(czWordSpan)
         czWordSpan.style.color = "white"
@@ -45,7 +59,7 @@ function addListWordsToPreview(){
         wordElement.append(deSpan)
         deSpan.style.color = "purple"
         deSpan.style.fontWeight = "bold"
-        deSpan.innerText = " DE: "
+        deSpan.innerText = ` ${lang2}: `
         let deWordSpan = document.createElement("span")
         wordElement.append(deWordSpan)
         deWordSpan.style.color = "white"

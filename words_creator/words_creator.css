@@ -44,7 +44,7 @@ body {
     font-family: "DynaPuff";
     color: white;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     text-align: center;
     height: 100%;
@@ -69,9 +69,6 @@ body {
 }
 #priority {
     top: 60%;
-}
-#priority p {
-    translate: -1.6em;
 }
 #create-button {
     padding: 1em 2em;
@@ -250,6 +247,9 @@ body {
 #step-2-new input {
     cursor: text;
 }
+.step-2-new-lang {
+    max-width: 14%;
+}
 #step-2-browser select {
     outline: none;
     border: none;
@@ -386,7 +386,7 @@ input[type="file"] {
     position: relative;
 }
 #file-options button::before {
-    width: 20em;
+    width: 100%;
     height: 2em;
     display: inline-block;
     position: absolute;
@@ -480,13 +480,19 @@ input[type="file"] {
         top: 50%;
     }
     #cz-word, #de-word {
-        width: 80%;
+        width: 50%;
+    }
+    #cz-word input, #de-word input {
+        translate: 25% -50%;
+    }
+    #cz-word p, #de-word p {
+        text-align: right;
+        translate: 135%;
+        display: flex;
+        justify-content: flex-end;
     }
     #priority {
-        width: 30%;
-    }
-    #priority input {
-        margin-left: 2em;
+        translate: 25%;
     }
     #word-constructor-info {
         display: none;
@@ -531,5 +537,8 @@ input[type="file"] {
     }
     #step-1 p, #step-2-new p, #step-2-chose p, #step-2-open p, #step-2-browser p {
         font-size: 1rem;
+    }
+    .step-2-new-lang {
+        max-width: 28%;
     }
 }

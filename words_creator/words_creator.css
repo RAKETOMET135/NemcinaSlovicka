@@ -540,5 +540,9 @@ input[type="file"] {
     }
     .step-2-new-lang {
         max-width: 28%;
+        transform: translateY(-50%);
+    }
+    #step-2-new input {
+        top: 35%;
     }
 }

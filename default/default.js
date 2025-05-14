@@ -1,6 +1,7 @@
 import { loadLection, getLectionFileNames, updateHTMLSelect } from "../loader/lection_loader.js"
 import { saveData, loadData } from "../loader/data_saver.js"
 import { DataHolder } from "../structure/data_holder.js"
+import { Random } from "../structure/random.js"
 
 let dataHolder = new DataHolder("website_data")
 
@@ -46,6 +47,8 @@ let hint = ""
 let language = "de"
 let lang1 = "CZ"
 let lang2 = "DE"
+let availableWords = []
+let incorrectWords = []
 
 let skipCorrectAnswer = false
 let submitState = "submit"
@@ -73,6 +76,9 @@ function onWordFileLoad(newWordFile, lang){
 
     lang1 = "CZ"
     lang2 = "DE"
+
+    availableWords = []
+    incorrectWords = []
 
     if (lang){
         if (lang[0] !== ""){
@@ -284,6 +290,8 @@ function submitAnswer(){
 
             userInput.value += " --> " + correctAnswer
             userInput.style.color = incorrectColor
+
+            incorrectWords.push(currentWord)
         }
 
         submitState = "submitted"
@@ -300,9 +308,70 @@ function submitAnswer(){
     }
 }
 
+function getRandomWord(){
+    let nextWord
+
+    if (availableWords.length <= 0){
+        availableWords = []
+        
+        for (let i = 0; i < currentWordFile.length; i++){
+            const priority = currentWordFile[i].priority
+
+            for (let j = 0; j < priority; j++){
+                availableWords.push(i)
+            }
+        }
+    }
+
+    let randomWordIndex = Random.getNumber(0, availableWords.length -1)
+
+    nextWord = currentWordFile[availableWords[randomWordIndex]]
+
+    if (currentWord){
+        while (nextWord === currentWord){
+            nextWord = currentWordFile[availableWords[randomWordIndex]]
+        }
+    }
+
+    if (nextWord){
+        availableWords.splice(randomWordIndex, 1)
+    }
+
+    return nextWord
+}
+
+function getNextWord(){
+    let nextWord
+    let chanceForIncorrect = Random.getNumber(0, 1)
+
+    if (incorrectWords.length <= 0) chanceForIncorrect = 0
+
+    if (chanceForIncorrect === 0){
+        nextWord = getRandomWord()
+    }
+    else{
+        for (let i = 0; i < incorrectWords.length; i++){
+            let pickedWord = incorrectWords[i]
+
+            if (pickedWord === prevWord) continue
+
+            nextWord = pickedWord
+
+            incorrectWords.splice(i, 1)
+
+            break
+        }
+
+        if (!nextWord) nextWord = getRandomWord()
+    }
+
+    return nextWord
+}
+
 function displayNextWord(){
     let pickedWord
 
+    /*
     let totalWordChance = 0
     let usedWordChance = 0
 
@@ -367,6 +436,9 @@ function displayNextWord(){
 
         if (allIncorrectWords.length > 0) pickedWord = allIncorrectWords[Math.floor(Math.random() * allIncorrectWords.length)]
     }
+    */
+
+    pickedWord = getNextWord()
 
     if (!pickedWord){
         displayNextWord()
@@ -863,7 +935,9 @@ function saveDataHolderData(){
         wordIncorrect: incorrect,
         prevWord: prevWord,
         lang1: lang1,
-        lang2: lang2
+        lang2: lang2,
+        availableWords: availableWords,
+        incorrectWords: incorrectWords
     }
 
     window.sessionStorage.setItem("page_data", JSON.stringify(sessionPageData))
@@ -885,6 +959,8 @@ function loadSessionData(){
     prevWord = sessionPageData.prevWord
     userInput.value = sessionPageData.userText
     userInput.style.color = sessionPageData.userTextColor
+    availableWords = sessionPageData.availableWords
+    incorrectWords = sessionPageData.incorrectWords
 
     if (sessionPageData.lang1){
         lang1 = sessionPageData.lang1

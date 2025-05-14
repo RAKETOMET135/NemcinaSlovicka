@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="x-icon" href="../images/WebsiteIcon_larger.png">
+    <title>Němčina Slovíčka - Časová výzva</title>
+    <link rel="stylesheet" href="../nav.css">
+    <link rel="stylesheet" href="time_challenge.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div id="nav-logo">
+                <img src="../images/WebsiteIcon_larger.png" alt="">
+                <p id="nav-logo-text">Němčina slovíčka</p>
+            </div>
+            <img id="dark-mode" src="../images/moon.png" alt="">
+        </nav>
+    </header>
+
+    <section id="main-section">
+        <div class="round-element">
+            <p id="display-word">vzhled</p>
+        </div>
+
+        <div class="round-element">
+            <input placeholder="Napiš překlad" type="text" spellcheck="false" autocomplete="off" id="user-input">
+        </div>
+
+        <div class="round-element" id="buttons-holder">
+            <button id="a-umlaut-button"></button>
+            <button id="o-umlaut-button"></button>
+            <button id="u-umlaut-button"></button>
+            <button id="sharp-s-button"></button>
+            <button id="upper-case-button"></button>
+        </div>
+
+        <div class="round-element">
+            <div id="time-bar"></div>
+            <div id="time-bar-decor"></div>
+        </div>
+
+        <h1 class="menu-element" id="main-section-header">Časová výzva</h1>
+
+        <p class="menu-element" id="words-range-header">Oblast slovíček</p>
+        <select class="menu-element" name="Oblast slovíček" id="words-range"></select>
+
+        <p class="menu-element" id="difficulty-range-header">Obtížnost</p>
+        <select class="menu-element" name="Obtížnost" id="difficulty-range">
+            <option value="easy">Snadná</option>
+            <option value="normal" selected>Normální</option>
+            <option value="hard">Těžká</option>
+            <option value="insane">Šílená</option>
+        </select>
+
+        <p class="menu-element" id="variant-range-header">Varianta</p>
+        <select class="menu-element" name="Varianta" id="variant-range"></select>
+
+        <button class="menu-element" id="play-button"></button>
+
+        <h1 class="result-element" id="result-header">Výsledky</h1>
+
+        <p class="result-element" id="result">Počet zodpovězených slov: 5</p>
+
+        <button class="result-element" id="back-button"></button>
+    </section>
+
+    <script src="time_challenge.js" type="module"></script>
+</body>
+</html>

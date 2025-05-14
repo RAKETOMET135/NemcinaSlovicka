@@ -1,0 +1,304 @@
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap');
+
+* {
+    margin: 0;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+}
+
+body {
+    background-color: #FDFBFD;
+    overflow-x: hidden;
+}
+
+#main-section {
+    width: 75%;
+    height: 80%;
+    top: 10%;
+    position: absolute;
+    left: 12.5%;
+}
+#main-section > div {
+    width: 700px;
+    left: 50%;
+    translate: -50%;
+    position: absolute;
+}
+#main-section > div:first-child {
+    top: 10%;
+    height: 20%;
+}
+#main-section > div:nth-child(2) {
+    top: 35%;
+    height: 10%;
+}
+#main-section > div:nth-child(3) {
+    top: 50%;
+    height: 10%;
+}
+#main-section > div:nth-child(4) {
+    top: 2.5%;
+    height: 5%;
+}
+#time-bar {
+    position: absolute;
+    left: 10%;
+    height: 90%;
+    top: 5%;
+    width: 80%;
+    background-color: white;
+    border-radius: 15px;
+}
+#time-bar-decor {
+    position: absolute;
+    left: 10%;
+    height: 90%;
+    top: 5%;
+    width: 80%;
+    background-color: transparent;
+    outline: #021F31 2px solid;
+    border-radius: 15px;
+}
+#display-word {
+    width: 80%;
+    left: 10%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: white;
+    font-family: "DynaPuff";
+    text-align: center;
+    background-color: #021F31;
+    position: absolute;
+    border-radius: 10px;
+}
+#user-input {
+    width: 80%;
+    position: absolute;
+    left: 10%;
+    top: 50%;
+    translate: 0 -50%;
+    height: 40%;
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+    font-family: "DynaPuff";
+    outline: none;
+    border: none;
+    background-color: #021F31;
+    border-radius: 0.3em;
+}
+
+#main-section-header, #result-header {
+    color: white;
+    font-family: "DynaPuff";
+    font-size: 3rem;
+    position: absolute;
+    left: 50%;
+    translate: -50%;
+    top: 5%;
+}
+#result {
+    font-family: "DynaPuff";
+    color: white;
+    font-size: 2rem;
+    position: absolute;
+    left: 50%;
+    translate: -50%;
+    top: 20%;
+    text-align: center;
+}
+
+#words-range, #difficulty-range, #variant-range {
+    border: #021F31 5px solid;
+    border-radius: 0.3em;
+    font-size: 1.5rem;
+    position: absolute;
+    left: 50%;
+    translate: -50%;
+    font-family: "DynaPuff";
+    outline: none;
+    top: 25%;
+    cursor: pointer;
+    background-color: #021F31;
+    color: white;
+}
+#words-range option, #difficulty-range option, #variant-range option {
+    font-size: 1.5rem;
+    color: white;
+}
+#words-range::-webkit-scrollbar, #difficulty-range::-webkit-scrollbar, #variant-range::-webkit-scrollbar {
+    width: 5px;
+}
+#words-range::-webkit-scrollbar-track, #difficulty-range::-webkit-scrollbar-track, #variant-range::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 10px;
+}
+#words-range::-webkit-scrollbar-thumb, #difficulty-range::-webkit-scrollbar-thumb, #variant-range::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 10px;
+}
+#words-range-header, #difficulty-range-header, #variant-range-header {
+    position: absolute;
+    color: white;
+    font-family: "DynaPuff";
+    left: 50%;
+    top: 25%;
+    translate: -50% -115%;
+}
+#difficulty-range-header {
+    top: 40%;
+}
+#difficulty-range {
+    top: 40%;
+}
+#variant-range-header {
+    top: 55%;
+}
+#variant-range {
+    top: 55%;
+}
+
+
+#play-button, #back-button {
+    position: absolute;
+    aspect-ratio: 6/1;
+    height: 3.5em;
+    cursor: pointer;
+    border-radius: 0.75em;
+    border: none;
+    background-color: rgb(8, 196, 33);
+    font-size: 1rem;
+    z-index: 1;
+    transition: filter 0.3s, scale 0.3s;
+    scale: 0.75;
+    margin: -0.3em;
+    margin-left: -0.5em;
+    left: 50%;
+    translate: -50%;
+    top: 80%;
+}
+#play-button::before, #back-button::before {
+    width: 100%;
+    height: 110%;
+    background-color: rgb(6, 223, 35);
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: -0.41em;
+    z-index: 0;
+    font-family: "DynaPuff";
+    color: white;
+    border-radius: 0.6em;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+#play-button::before {
+    content: "Hrát";
+}
+#back-button::before {
+    content: "Menu";
+}
+#play-button:hover, #back-button:hover {
+    filter: brightness(1.2);
+    scale: 0.77;
+}
+
+#buttons-holder {
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    display: flex;
+}
+#buttons-holder button {
+    position: relative;
+    aspect-ratio: 1.15/1;
+    height: calc(75% - 0.5em);
+    cursor: pointer;
+    border-radius: 0.75em;
+    border: none;
+    background-color: #021F31;
+    font-size: 1rem;
+    z-index: 1;
+    transition: filter 0.3s, scale 0.3s;
+    scale: 0.75;
+    margin: -0.3em;
+    margin-left: -0.5em;
+}
+#buttons-holder button::before {
+    width: 100%;
+    height: 110%;
+    background-color: #054064;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: -0.41em;
+    z-index: 0;
+    font-family: "DynaPuff";
+    color: white;
+    border-radius: 0.6em;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+#buttons-holder button:hover {
+    filter: brightness(1.2);
+    scale: 0.77;
+}
+#a-umlaut-button::before {
+    content: var(--before-a, "ä");
+}
+#o-umlaut-button::before {
+    content: var(--before-o, "ö");
+}
+#u-umlaut-button::before {
+    content: var(--before-u, "ü");
+}
+#sharp-s-button::before {
+    content: "ß";
+}
+#upper-case-button::before {
+    content: "⇪";
+}
+
+@media (width < 800px) {
+    #main-section-header, #result-header {
+        font-size: 2rem;
+        text-align: center;
+        width: 350px;
+    }
+    #words-range-header, #variant-range-header, #difficulty-range-header {
+        width: 300px;
+        text-align: center;
+    }
+    #main-section {
+        width: 100%;
+        left: 0;
+        overflow: hidden;
+    }
+    #display-word, #user-input {
+        font-size: 1.5rem;
+    }
+    #result {
+        width: 350px;
+        font-size: 1rem;
+        text-align: center;
+    }
+    #main-section > div {
+        width: 90%;
+        left: 5%;
+        translate: 0;
+    }
+}

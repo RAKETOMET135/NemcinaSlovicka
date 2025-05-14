@@ -30,6 +30,7 @@ function main(){
     const pexesoButton = document.querySelector("#pexeso-card")
     const wordsListButton = document.querySelector("#words-list-card")
     const customeWordsButton = document.querySelector("#custome-words-card")
+    const timeChallengeButton = document.querySelector("#time-challenge-card")
 
     standartButton.addEventListener("click", () => {
         window.location.href = "../default/default.html"
@@ -42,6 +43,9 @@ function main(){
     })
     customeWordsButton.addEventListener("click", () => {
         window.location.href = "../words_creator/words_creator.html"
+    })
+    timeChallengeButton.addEventListener("click", () => {
+        window.location.href = "../time_challenge/time_challenge.html"
     })
 
     darkMode = loadData("darkMode")

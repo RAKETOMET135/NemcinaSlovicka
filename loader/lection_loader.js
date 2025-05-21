@@ -170,6 +170,7 @@ export function loadLection(webRootPath, fileName, onLoadFunction){
 
 export function getLectionFileNames(){
     const lectionNameList = [
+        ["lekce14vyber.json", "Lekce 14 - výběr 1"],
         ["lekce13_str39-42.json", "Lekce 13 - str 39-42"],
         ["lekce13_str36-38.json", "Lekce 13 - str 36-38"],
         ["lekce12_str27-29.json", "Lekce 12 - str 27-29"],

@@ -1,100 +1,66 @@
-import { loadLection, getLectionFileNames, updateHTMLSelect } from "../loader/lection_loader.js"
-import { saveData, loadData } from "../loader/data_saver.js"
-import { DataHolder } from "../structure/data_holder.js"
+import { loadData, saveData } from "../loader/data_saver.js"
+import { getVerbFileNames, loadVerbFile, updateHTMLSelectVerbFile } from "../loader/lection_loader.js"
 import { Random } from "../structure/random.js"
+import { DataHolder } from "../structure/data_holder.js"
 
 let dataHolder = new DataHolder("website_data")
 
-const mainSection = document.querySelector("#main-section")
-const helperSection = document.querySelector("#helper-section")
-const statsSection = document.querySelector("#stats-section")
-const selectionSection = document.querySelector("#selection-section")
-const wordsListPreviewSection = document.querySelector("#words-list-preview")
-
-const wordsListBasicData = document.querySelector("#basic-data")
-const wordsListWords = document.querySelector("#words-list-words")
-
-const displayWord = document.querySelector("#display-word")
-const userInput = document.querySelector("#user-input")
-const submitButton = document.querySelector("#submit-answer")
-const ttsButton = document.querySelector("#tts-button")
-const repeatWord = document.querySelector("#repeat-word")
 const wordsRange = document.querySelector("#words-range")
 const allWordsSeenMark = document.querySelector("#all-words-seen-mark")
-const wordsListButton = document.querySelector("#words-list-button")
-const wordsListButton2 = document.querySelector("#words-list-button2")
-const curLangText = document.querySelector("#cur-lang-text")
-
+const correctText = document.querySelector("#correct")
+const incorrectText = document.querySelector("#incorrect")
+const streakText = document.querySelector("#streak")
+const streakImage = document.querySelector("#streak-img")
+const displayWord = document.querySelector("#display-word")
+const deUserInput = document.querySelector("#de-input")
+const perfektUserInput = document.querySelector("#perfekt-input")
+const submitButton = document.querySelector("#submit-answer")
+const ttsButton = document.querySelector("#tts-button")
 const aUmlautButton = document.querySelector("#a-umlaut-button")
 const oUmlautButton = document.querySelector("#o-umlaut-button")
 const uUmlautButton = document.querySelector("#u-umlaut-button")
 const sharpSButton = document.querySelector("#sharp-s-button")
 const upperCaseButton = document.querySelector("#upper-case-button")
 const skipCorrectAnswerButton = document.querySelector("#skip-correct-answer-button")
+const repeatWord = document.querySelector("#repeat-word")
+const wordsListPreview = document.querySelector("#words-list-preview")
+const mainSection = document.querySelector("#main-section")
+const helperSection = document.querySelector("#helper-section")
+const statsSection = document.querySelector("#stats-section")
+const selectionSection = document.querySelector("#selection-section")
+const wordsListBasicData = document.querySelector("#basic-data")
+const wordsListWords = document.querySelector("#words-list-words")
+const wordsListButton = document.querySelector("#words-list-button")
+const wordsListButton2 = document.querySelector("#words-list-button2")
 const hintButton = document.querySelector("#hint-button")
-const flipWordsButton = document.querySelector("#flip-words-button")
 
-const correctText = document.querySelector("#correct")
-const incorrectText = document.querySelector("#incorrect")
-const streakText = document.querySelector("#streak")
-const streakImage = document.querySelector("#streak-img")
-
-let currentWordFile = NaN
 let currentFileName = ""
-let prevWord
+let currentWordFile
+let sessionDataLoaded = false
 let currentWord
-let hint = ""
-let language = "de"
-let lang1 = "CZ"
-let lang2 = "DE"
+let prevWord
+let tts = false
+let speachText = new SpeechSynthesisUtterance()
+let darkMode = false
+let correctData = 0
+let incorrect = 0
+let streak = 0
 let availableWords = []
 let incorrectWords = []
-
 let skipCorrectAnswer = false
 let submitState = "submit"
 let correctColor = "rgb(4, 187, 4)"
 let incorrectColor = "rgb(235, 0, 0)"
 let hintColor = "rgb(1, 64, 201)"
-
-let upperCase = false
 let altHolded = false
-
-let tts = false
-let speachText = new SpeechSynthesisUtterance()
-
-let correctData = 0
-let incorrect = 0
-let streak = 0
-
-let darkMode = false
+let focusInput = null
+let upperCase = false
 let allWordsSeenMarkVisible = false
+let deHint = ""
+let perfektHint = ""
 
-let sessionDataLoaded = false
-
-function onWordFileLoad(newWordFile, lang){
-    currentWordFile = newWordFile
-
-    lang1 = "CZ"
-    lang2 = "DE"
-
-    availableWords = []
-    incorrectWords = []
-
-    if (lang){
-        if (lang[0] !== ""){
-            lang1 = lang[0]
-        }
-        if (lang[1] !== ""){
-            lang2 = lang[1]
-        }
-    }
-
-    if (language === "de"){
-        curLangText.innerText = `${lang1} -> ${lang2}`
-    }
-    else {
-        curLangText.innerText = `${lang2} -> ${lang1}`
-    }
+function onWordFileLoad(words, lang){
+    currentWordFile = words
 
     updateStats()
 
@@ -105,140 +71,6 @@ function onWordFileLoad(newWordFile, lang){
     sessionDataLoaded = true
 
     loadSessionData()
-}
-
-function checkInput(inputString){
-    let possibleAnswers = []
-    let userAnswers = []
-
-    if (language === "de"){
-        possibleAnswers = currentWord.dePossibleAnswers
-    }
-    else{
-        possibleAnswers = currentWord.czPossibleAnswers
-    }
-
-    let currentlyBuildedWord = ""
-    for (let i = 0; i < inputString.length; i++){
-        const letter = inputString.slice(i, i +1)
-
-        if (letter === ","){
-            userAnswers.push(currentlyBuildedWord)
-            currentlyBuildedWord = ""
-            continue
-        }
-
-        if (letter === " "){
-            if (inputString.slice(i -1, i) === "," || inputString.slice(i +1, i +2) === "("){
-                continue
-            }
-        }
-
-        if (letter === "("){
-            userAnswers.push(currentlyBuildedWord)
-            currentlyBuildedWord = ""
-            continue
-        }
-
-        if (letter === ")"){
-            userAnswers.push(currentlyBuildedWord)
-            currentlyBuildedWord = ""
-            continue
-        }
-
-        currentlyBuildedWord += letter
-
-        if (i === inputString.length -1) userAnswers.push(currentlyBuildedWord)
-    }
-
-    let allAnsweredWordsCorrect = true
-    for (let i = 0; i < userAnswers.length; i++){
-        const userAnswer = userAnswers[i]
-        let isCorrect = false
-
-        for (let j = 0; j < possibleAnswers.length; j++){
-            const possibleAnswer = possibleAnswers[j]
-
-            if (possibleAnswer === userAnswer){
-                isCorrect = true
-                break
-            }
-        }
-
-        if (!isCorrect) allAnsweredWordsCorrect = false
-    }
-
-    if (userAnswers.length < 1) allAnsweredWordsCorrect = false
-
-    return allAnsweredWordsCorrect
-}
-
-function sayWord(usedWord){
-    window.speechSynthesis.cancel()
-
-    if (language === "de" && usedWord.czWord){
-        speachText.text = usedWord.czWord
-        speachText.lang = "cs-CS"
-
-        window.speechSynthesis.speak(speachText)
-    }
-    else if(usedWord.deWord){
-        speachText.text = usedWord.deWord
-        speachText.lang = "de-DE"
-
-        window.speechSynthesis.speak(speachText)
-    }
-}
-
-function changeTTS(){
-    tts = !tts
-
-    if (tts){
-        displayWord.style.color = "#021F31"
-        ttsButton.style.setProperty("--before-image", 'url("../images/NoVoiceIcon.png")')
-        repeatWord.style.visibility = "visible"
-
-        if (currentWord){
-            sayWord(currentWord)
-        }
-    }
-    else{
-        displayWord.style.color = "white"
-        ttsButton.style.setProperty("--before-image", 'url("../images/VoiceIcon.png")')
-        repeatWord.style.visibility = "hidden"
-    }
-
-    dataHolder.updateData("tts", tts)
-}
-
-function updateWordsData(correct){
-    for (let i = 0; i < currentWordFile.length; i++){
-        const thisWord = currentWordFile[i]
-
-        if (thisWord.czWord === currentWord.czWord){
-            if (correct && hint === ""){
-                currentWordFile[i].correct += 1
-                currentWordFile[i].streak += 1
-
-                if (currentWordFile[i].maxStreak < currentWordFile[i].streak) {
-                    currentWordFile[i].maxStreak = currentWordFile[i].streak
-                }
-
-                correctData++
-                streak++
-            }
-            else if (correct){
-                currentWordFile[i].timesHintUsed += 1
-            }
-            else {
-                currentWordFile[i].incorrect += 1
-                currentWordFile[i].streak = 0
-
-                incorrect++
-                streak = 0
-            }
-        }
-    }
 }
 
 function updateStats(){
@@ -264,47 +96,90 @@ function updateStats(){
     }
 }
 
-function submitAnswer(){
-    if (submitState === "submit"){
-        const userText = userInput.value
-        const correct = checkInput(userText)
+function onWordsRangeChange(){
+    const selectedItem = wordsRange.value
 
-        updateWordsData(correct)
-        updateStats()
+    if (currentFileName === selectedItem) return
 
-        if (correct){
-            if (skipCorrectAnswer){
-                displayNextWord()
+    currentFileName = selectedItem
 
-                return
-            }
+    correctData = 0
+    incorrect = 0
+    streak = 0
 
-            userInput.style.color = correctColor
-        }
-        else{
-            let correctAnswer = currentWord.dePossibleAnswers[0]
+    allWordsSeenMark.style.visibility = "hidden"
 
-            if (language === "cz"){
-                correctAnswer = currentWord.czPossibleAnswers[0]
-            }
+    loadVerbFile("..", currentFileName, onWordFileLoad)
+}
 
-            userInput.value += " --> " + correctAnswer
-            userInput.style.color = incorrectColor
+function loadSessionData(){
+    let sessionPageData = window.sessionStorage.getItem("page_data_verbs")
 
-            incorrectWords.push(currentWord)
-        }
+    if (sessionPageData === null) return
 
-        submitState = "submitted"
-        userInput.readOnly = true
+    sessionPageData = JSON.parse(sessionPageData)
+
+    currentWordFile = sessionPageData.wordsList
+    currentFileName = sessionPageData.wordCategory
+    streak = sessionPageData.wordStreak
+    correctData = sessionPageData.wordCorrect
+    incorrect = sessionPageData.wordIncorrect
+    prevWord = sessionPageData.prevWord
+    deUserInput.value = sessionPageData.userText
+    deUserInput.style.color = sessionPageData.userTextColor
+    perfektUserInput.value = sessionPageData.userText2
+    perfektUserInput.style.color = sessionPageData.userText2Color
+    availableWords = sessionPageData.availableWords
+    incorrectWords = sessionPageData.incorrectWords
+    deHint = sessionPageData.deHint
+    perfektHint = sessionPageData.perfektHint
+
+    updateStats()
+
+    wordsRange.value = currentFileName
+
+    currentWord = sessionPageData.wordDisplayed
+
+    displayWord.innerText = currentWord.czWord
+
+    submitState = sessionPageData.submitState
+
+    if (submitState === "submitted"){
+        deUserInput.readOnly = true
+        perfektUserInput.readOnly = true
         submitButton.style.setProperty("--before-content", '"➔"')
     }
-    else{
-        submitState = "submit"
-        userInput.readOnly = false
-        userInput.style.color = "white"
-        submitButton.style.setProperty("--before-content", '"✓"')
+}
 
-        displayNextWord()
+function changeTTS(){
+    tts = !tts
+
+    if (tts){
+        displayWord.style.color = "#021F31"
+        ttsButton.style.setProperty("--before-image", 'url("../images/NoVoiceIcon.png")')
+        repeatWord.style.visibility = "visible"
+
+        if (currentWord){
+            sayWord(currentWord)
+        }
+    }
+    else{
+        displayWord.style.color = "white"
+        ttsButton.style.setProperty("--before-image", 'url("../images/VoiceIcon.png")')
+        repeatWord.style.visibility = "hidden"
+    }
+
+    dataHolder.updateData("tts", tts)
+}
+
+function sayWord(usedWord){
+    window.speechSynthesis.cancel()
+
+    if (usedWord.czWord) {
+        speachText.text = usedWord.czWord
+        speachText.lang = "cs-CS"
+
+        window.speechSynthesis.speak(speachText)
     }
 }
 
@@ -373,75 +248,8 @@ function getNextWord(){
 function displayNextWord(){
     let pickedWord
 
-    /*
-    let totalWordChance = 0
-    let usedWordChance = 0
-
-    for (let i = 0; i < currentWordFile.length; i++){
-        const thisWord = currentWordFile[i]
-
-        let wordUserSuccess = 1000 - (Math.abs(thisWord.incorrect - thisWord.correct) *50)
-
-        if (thisWord.correct > thisWord.incorrect) wordUserSuccess = 1000
-        if (wordUserSuccess < 1) wordUserSuccess = 10
-
-        const wordDisplaySuccess = thisWord.timesDisplayed + 1
-
-        let wordChance = 100000 / wordUserSuccess / wordDisplaySuccess
-
-        if (thisWord === prevWord){
-            wordChance = 0
-        }
-        else if (prevWord){
-            if (thisWord.czWord === prevWord.czWord){
-                wordChance = 0
-            }
-        }
-
-        wordChance *= thisWord.priority
-
-        if (thisWord.timesDisplayed <= 0){
-            wordChance *= 100000
-        }
-
-        thisWord.chance = wordChance
-        totalWordChance += wordChance
-    }
-
-    const chosedNumber = Math.floor(Math.random() * totalWordChance +1)
-
-    for (let i = 0; i < currentWordFile.length; i++){
-        const thisWord = currentWordFile[i]
-
-        if (thisWord.chance === 0) continue
-
-        if (chosedNumber > usedWordChance && chosedNumber <= usedWordChance + thisWord.chance){
-            pickedWord = thisWord
-
-            break
-        }
-
-        usedWordChance += thisWord.chance
-    }
-
-    let chanceForIncorrect = Math.floor(Math.random() * 2)
-    if (chanceForIncorrect === 0){
-        let allIncorrectWords = []
-
-        for (let i = 0; i < currentWordFile.length; i++){
-            const thisWord = currentWordFile[i]
-
-            if (thisWord.incorrect > thisWord.correct && currentWord !== thisWord){
-                allIncorrectWords.push(thisWord)
-            }
-        }
-
-        if (allIncorrectWords.length > 0) pickedWord = allIncorrectWords[Math.floor(Math.random() * allIncorrectWords.length)]
-    }
-    */
-
     pickedWord = getNextWord()
-
+    
     if (!pickedWord){
         displayNextWord()
 
@@ -462,170 +270,177 @@ function displayNextWord(){
         }
     }
 
-    if (language === "de"){
-        displayWord.innerText = pickedWord.czWord
-    }
-    else{
-        displayWord.innerText = pickedWord.deWord
-    }
+    displayWord.innerText = pickedWord.czWord
    
-    userInput.value = ""
+    deUserInput.value = ""
+    deUserInput.style.color = "white"
+    perfektUserInput.value = ""
+    perfektUserInput.style.color = "white"
+    
+    deHint = ""
+    perfektHint = ""
 
     currentWord = pickedWord
     prevWord = pickedWord
-
-    hint = ""
 }
 
-function insertLetterAtCursor(letter){
-    if (document.selection) {
-        userInput.focus()
-        let selected = document.selection.createRange()
-        selected.text = letter
-        selected.moveStart("character", letter.length)
-        selected.select()
-    }
-    else if (userInput.selectionStart || userInput.selectionStart == '0') {
-        let startPos = userInput.selectionStart
-        let endPos = userInput.selectionEnd
-        userInput.value = userInput.value.substring(0, startPos)
-            + letter
-            + userInput.value.substring(endPos, userInput.value.length)
-        userInput.selectionStart = startPos + letter.length
-        userInput.selectionEnd = startPos + letter.length
-    } else {
-        userInput.value += letter
-    }
-}
+function updateWordsData(correct){
+    for (let i = 0; i < currentWordFile.length; i++){
+        const thisWord = currentWordFile[i]
 
-function giveHint(){
-    if (submitState === "submitted") return
+        if (thisWord.czWord === currentWord.czWord){
+            if (correct && deHint === "" && perfektHint === ""){
+                currentWordFile[i].correct += 1
+                currentWordFile[i].streak += 1
 
-    userInput.style.color = hintColor
+                if (currentWordFile[i].maxStreak < currentWordFile[i].streak) {
+                    currentWordFile[i].maxStreak = currentWordFile[i].streak
+                }
 
-    let correctAnswer
-    if (language === "de"){
-        correctAnswer = currentWord.dePossibleAnswers[0]
-    }
-    else{
-        correctAnswer = currentWord.czPossibleAnswers[0]
-    }
+                correctData++
+                streak++
+            }
+            else if (correct){
+                currentWordFile[i].timesHintUsed += 1
+            }
+            else {
+                currentWordFile[i].incorrect += 1
+                currentWordFile[i].streak = 0
 
-    if (hint.length === 0){
-        const before = correctAnswer.slice(0, 4)
-
-        if (before === "der " || before === "die " || before === "das "){
-            hint = before
-        }
-        else{
-            hint = correctAnswer.slice(0, 1)
-        }
-    }
-    else{
-        hint = correctAnswer.slice(0, hint.length +1)
-    }
-
-    userInput.value = hint
-    userInput.focus()
-}
-
-function flipWords(){
-    if (submitState === "submit"){
-        for (let i = 0; i < currentWordFile.length; i++){
-            const thisWord = currentWordFile[i]
-    
-            if (thisWord.czWord === currentWord.czWord){
-                currentWordFile[i].timesDisplayed -= 1
+                incorrect++
+                streak = 0
             }
         }
     }
+}
 
-    submitState = "submit"
-    userInput.readOnly = false
-    userInput.style.color = "white"
-    submitButton.style.setProperty("--before-content", '"✓"')
+function checkInput(deInputString, perfektInputString){
+    let deCorrect = checkInputSingle(deInputString, false)
+    let perfektCorrect = checkInputSingle(perfektInputString, true)
 
-    if (language === "de"){
-        language = "cz"
+    return deCorrect && perfektCorrect
+}
 
-        dataHolder.updateData("flip-words", true)
+function checkInputSingle(inputString, isPerfekt){
+    let possibleAnswers = []
+    let userAnswers = []
+
+    possibleAnswers = currentWord.dePossibleAnswers
+
+    if (isPerfekt){
+        possibleAnswers = currentWord.perfektPossibleAnswers
+    }
+
+    let currentlyBuildedWord = ""
+    for (let i = 0; i < inputString.length; i++){
+        const letter = inputString.slice(i, i +1)
+
+        if (letter === ","){
+            userAnswers.push(currentlyBuildedWord)
+            currentlyBuildedWord = ""
+            continue
+        }
+
+        if (letter === " "){
+            if (inputString.slice(i -1, i) === "," || inputString.slice(i +1, i +2) === "("){
+                continue
+            }
+        }
+
+        if (letter === "("){
+            userAnswers.push(currentlyBuildedWord)
+            currentlyBuildedWord = ""
+            continue
+        }
+
+        if (letter === ")"){
+            userAnswers.push(currentlyBuildedWord)
+            currentlyBuildedWord = ""
+            continue
+        }
+
+        currentlyBuildedWord += letter
+
+        if (i === inputString.length -1) userAnswers.push(currentlyBuildedWord)
+    }
+
+    let allAnsweredWordsCorrect = true
+    for (let i = 0; i < userAnswers.length; i++){
+        const userAnswer = userAnswers[i]
+        let isCorrect = false
+
+        for (let j = 0; j < possibleAnswers.length; j++){
+            const possibleAnswer = possibleAnswers[j]
+
+            if (possibleAnswer === userAnswer){
+                isCorrect = true
+                break
+            }
+        }
+
+        if (!isCorrect) allAnsweredWordsCorrect = false
+    }
+
+    if (userAnswers.length < 1) allAnsweredWordsCorrect = false
+
+    return allAnsweredWordsCorrect
+}
+
+function submitAnswer(){
+    if (submitState === "submit"){
+        const deUserText = deUserInput.value
+        const perfektUserText = perfektUserInput.value
+        const correct = checkInput(deUserText, perfektUserText)
+
+        updateWordsData(correct)
+        updateStats()
+
+        if (correct){
+            if (skipCorrectAnswer){
+                displayNextWord()
+
+                deUserInput.focus()
+
+                return
+            }
+
+            deUserInput.style.color = correctColor
+            perfektUserInput.style.color = correctColor
+        }
+        else{
+            if (!checkInputSingle(deUserInput.value, false)){
+                let deCorrectAnswer = currentWord.dePossibleAnswers[0]
+
+                deUserInput.value += " --> " + deCorrectAnswer
+            }
+
+            if (!checkInputSingle(perfektUserInput.value, true)){
+                let perfektCorrectAnswer = currentWord.perfektPossibleAnswers[0]
+
+                perfektUserInput.value += " --> " + perfektCorrectAnswer
+            }
+
+            deUserInput.style.color = incorrectColor
+            perfektUserInput.style.color = incorrectColor
+
+            incorrectWords.push(currentWord)
+        }
+
+        submitState = "submitted"
+        deUserInput.readOnly = true
+        perfektUserInput.readOnly = true
+        submitButton.style.setProperty("--before-content", '"➔"')
     }
     else{
-        language = "de"
+        submitState = "submit"
+        deUserInput.readOnly = false
+        deUserInput.style.color = "white"
+        perfektUserInput.readOnly = false
+        perfektUserInput.style.color = "white"
+        submitButton.style.setProperty("--before-content", '"✓"')
 
-        dataHolder.updateData("flip-words", false)
+        displayNextWord()
     }
-
-    if (language === "de"){
-        curLangText.innerText = `${lang1} -> ${lang2}`
-    }
-    else {
-        curLangText.innerText = `${lang2} -> ${lang1}`
-    }
-
-    displayNextWord()
-}
-
-function onKeyDown(event){
-    if (event.key === "Enter"){
-        submitAnswer()
-    }
-    else if (event.key === "Alt"){
-        altHolded = true
-    }
-
-    if (altHolded){
-        if (event.key === "a"){
-            insertLetterAtCursor("ä")
-            userInput.focus()
-        }
-        else if (event.key === "A"){
-            insertLetterAtCursor("Ä")
-            userInput.focus()
-        }
-        else if (event.key === "o"){
-            insertLetterAtCursor("ö")
-            userInput.focus()
-        }
-        else if (event.key === "O"){
-            insertLetterAtCursor("Ö")
-            userInput.focus()
-        }
-        else if (event.key === "u"){
-            insertLetterAtCursor("ü")
-            userInput.focus()
-        }
-        else if (event.key === "U"){
-            insertLetterAtCursor("Ü")
-            userInput.focus()
-        }
-        else if (event.key === "s" || event.key === "S"){
-            insertLetterAtCursor("ß")
-            userInput.focus()
-        }
-    }
-}
-
-function onKeyUp(event){
-    if (event.key === "Alt"){
-        altHolded = false
-    }
-}
-
-function onWordsRangeChange(){
-    const selectedItem = wordsRange.value
-
-    if (currentFileName === selectedItem) return
-
-    currentFileName = selectedItem
-
-    correctData = 0
-    incorrect = 0
-    streak = 0
-
-    allWordsSeenMark.style.visibility = "hidden"
-
-    loadLection("..", currentFileName, onWordFileLoad)
 }
 
 function displayWordsListUserStats(){
@@ -732,6 +547,9 @@ function displayWordsListUserStats(){
 function addListWordsToPreview(){
     while (wordsListWords.firstChild) wordsListWords.firstChild.remove()
 
+    let lang1 = "cz"
+    let lang2 = "de"
+
     for (let i = 0; i < currentWordFile.length; i++){
         const thisWord = currentWordFile[i]
 
@@ -763,6 +581,19 @@ function addListWordsToPreview(){
         wordElement.append(deWordSpan)
         deWordSpan.style.color = "white"
         deWordSpan.innerText = thisWord.deWord
+
+        let zima7 = document.createElement("br")
+        wordElement.append(zima7)
+
+        let perfektSpan = document.createElement("span")
+        wordElement.append(perfektSpan)
+        perfektSpan.style.color = "purple"
+        perfektSpan.style.fontWeight = "bold"
+        perfektSpan.innerText = " perfekt: "
+        let perfektWordSpan = document.createElement("span")
+        wordElement.append(perfektWordSpan)
+        perfektWordSpan.style.color = "white"
+        perfektWordSpan.innerText = thisWord.perfektPossibleAnswers[0]
 
         let zima2 = document.createElement("br")
         wordElement.append(zima2)
@@ -878,7 +709,7 @@ function openWordListPreview(){
         allWordsSeenMarkVisible = false
     }
 
-    wordsListPreviewSection.style.visibility = "visible"
+    wordsListPreview.style.visibility = "visible"
 
     displayWordsListUserStats()
     addListWordsToPreview()
@@ -894,7 +725,86 @@ function closeWordListPreview(){
         allWordsSeenMark.style.visibility = "visible"
     }
 
-    wordsListPreviewSection.style.visibility = "hidden"
+    wordsListPreview.style.visibility = "hidden"
+}
+
+function insertLetterAtCursor(letter){
+    if (document.selection) {
+        focusInput.focus()
+        let selected = document.selection.createRange()
+        selected.text = letter
+        selected.moveStart("character", letter.length)
+        selected.select()
+    }
+    else if (focusInput.selectionStart || focusInput.selectionStart == '0') {
+        let startPos = focusInput.selectionStart
+        let endPos = focusInput.selectionEnd
+        focusInput.value = focusInput.value.substring(0, startPos)
+            + letter
+            + focusInput.value.substring(endPos, focusInput.value.length)
+        focusInput.selectionStart = startPos + letter.length
+        focusInput.selectionEnd = startPos + letter.length
+    } else {
+        focusInput.value += letter
+    }
+}
+
+function onKeyDown(event){
+    if (event.key === "Enter"){
+        if (deUserInput.readOnly){
+            submitAnswer()
+
+            deUserInput.focus()
+        }
+        else{
+            if (deUserInput === document.activeElement) {
+                perfektUserInput.focus()
+            }
+            else if (perfektUserInput === document.activeElement) {
+                submitAnswer()
+            }
+        }
+    }
+    else if (event.key === "Alt"){
+        altHolded = true
+    }
+
+    if (altHolded && focusInput){
+        if (event.key === "a"){
+            insertLetterAtCursor("ä")
+            focusInput.focus()
+        }
+        else if (event.key === "A"){
+            insertLetterAtCursor("Ä")
+            focusInput.focus()
+        }
+        else if (event.key === "o"){
+            insertLetterAtCursor("ö")
+            focusInput.focus()
+        }
+        else if (event.key === "O"){
+            insertLetterAtCursor("Ö")
+            focusInput.focus()
+        }
+        else if (event.key === "u"){
+            insertLetterAtCursor("ü")
+            focusInput.focus()
+        }
+        else if (event.key === "U"){
+            insertLetterAtCursor("Ü")
+            focusInput.focus()
+        }
+        else if (event.key === "s" || event.key === "S"){
+            insertLetterAtCursor("ß")
+            focusInput.focus()
+        }
+    }
+}
+
+function onKeyUp(event){
+    if (event.key === "Alt"){
+        altHolded = false
+    }
 }
 
 function changeMode(){
@@ -909,7 +819,6 @@ function changeMode(){
         navLogoText.style.color = "white"
         wordsRangeHeader.style.color = "white"
         wordsListHeader.style.color = "white"
-        curLangText.style.color = "white"
     }
     else{
         document.body.style.backgroundColor = "#FDFBFD"
@@ -917,7 +826,6 @@ function changeMode(){
         navLogoText.style.color = "#021F31"
         wordsRangeHeader.style.color = "#021F31"
         wordsListHeader.style.color = "#021F31"    
-        curLangText.style.color = "#054064"
     }
 }
 
@@ -928,75 +836,73 @@ function saveDataHolderData(){
         wordsList: currentWordFile,
         wordCategory: currentFileName,
         wordStreak: streak,
-        wordHint: hint,
         wordDisplayed: currentWord,
         submitState: submitState,
-        userText: userInput.value,
-        userTextColor: userInput.style.color,
+        userText: deUserInput.value,
+        userTextColor: deUserInput.style.color,
+        userText2: perfektUserInput.value,
+        userText2Color: perfektUserInput.style.color,
         wordCorrect: correctData,
         wordIncorrect: incorrect,
         prevWord: prevWord,
-        lang1: lang1,
-        lang2: lang2,
         availableWords: availableWords,
-        incorrectWords: incorrectWords
+        incorrectWords: incorrectWords,
+        deHint: deHint,
+        perfektHint: perfektHint
     }
 
-    window.sessionStorage.setItem("page_data", JSON.stringify(sessionPageData))
+    window.sessionStorage.setItem("page_data_verbs", JSON.stringify(sessionPageData))
 }
 
-function loadSessionData(){
-    let sessionPageData = window.sessionStorage.getItem("page_data")
+function giveHint(){
+    if (submitState === "submitted") return
 
-    if (sessionPageData === null) return
+    focusInput.style.color = hintColor
 
-    sessionPageData = JSON.parse(sessionPageData)
+    let isPerfekt = false
 
-    currentWordFile = sessionPageData.wordsList
-    currentFileName = sessionPageData.wordCategory
-    streak = sessionPageData.wordStreak
-    hint = sessionPageData.wordHint
-    correctData = sessionPageData.wordCorrect
-    incorrect = sessionPageData.wordIncorrect
-    prevWord = sessionPageData.prevWord
-    userInput.value = sessionPageData.userText
-    userInput.style.color = sessionPageData.userTextColor
-    availableWords = sessionPageData.availableWords
-    incorrectWords = sessionPageData.incorrectWords
+    if (focusInput === perfektUserInput) isPerfekt = true
 
-    if (sessionPageData.lang1){
-        lang1 = sessionPageData.lang1
-    }
-    if (sessionPageData.lang2){
-        lang2 = sessionPageData.lang2
-    }
+    let correctAnswer = currentWord.dePossibleAnswers[0]
 
-    if (language === "de"){
-        curLangText.innerText = `${lang1} -> ${lang2}`
-    }
-    else {
-        curLangText.innerText = `${lang2} -> ${lang1}`
-    }
+    if (isPerfekt) correctAnswer = currentWord.perfektPossibleAnswers[0]
 
-    updateStats()
+    if (!isPerfekt){
+        if (deHint.length === 0) {
+            const before = correctAnswer.slice(0, 4)
 
-    wordsRange.value = currentFileName
+            if (before === "hat " || before === "ist ") {
+                deHint = before
+            }
+            else {
+                deHint = correctAnswer.slice(0, 1)
+            }
+        }
+        else {
+            deHint = correctAnswer.slice(0, deHint.length + 1)
+        }
 
-    currentWord = sessionPageData.wordDisplayed
-
-    if (language === "de"){
-        displayWord.innerText = currentWord.czWord
+        focusInput.value = deHint
     }
     else{
-        displayWord.innerText = currentWord.deWord
+        if (perfektHint.length === 0) {
+            const before = correctAnswer.slice(0, 4)
+
+            if (before === "hat " || before === "ist ") {
+                perfektHint = before
+            }
+            else {
+                perfektHint = correctAnswer.slice(0, 1)
+            }
+        }
+        else {
+            perfektHint = correctAnswer.slice(0, perfektHint.length + 1)
+        }
+
+        focusInput.value = perfektHint
     }
 
-    submitState = sessionPageData.submitState
-
-    if (submitState === "submitted"){
-        userInput.readOnly = true
-        submitButton.style.setProperty("--before-content", '"➔"')
-    }
+    focusInput.focus()
 }
 
 function main(){
@@ -1006,14 +912,58 @@ function main(){
     navLogo.addEventListener("click", () => {
         window.location.href = "../index.html"
     })
-
     submitButton.addEventListener("click", submitAnswer)
     ttsButton.addEventListener("click", changeTTS)
-    document.addEventListener("keydown", onKeyDown)
-    document.addEventListener("keyup", onKeyUp)
     repeatWord.addEventListener("click", () => {
         sayWord(currentWord)
     })
+    repeatWord.style.visibility = "hidden"
+    wordsListButton.addEventListener("click", openWordListPreview)
+    wordsListButton2.addEventListener("click", closeWordListPreview)
+    hintButton.addEventListener("click", giveHint)
+
+    const verbFiles = getVerbFileNames()
+    const primaryVerbFile = verbFiles[0]
+
+    updateHTMLSelectVerbFile(wordsRange)
+
+    currentFileName = primaryVerbFile[0]
+    wordsRange.addEventListener("change", onWordsRangeChange)
+
+    loadVerbFile("..", verbFiles[0][0], onWordFileLoad)
+
+    allWordsSeenMark.style.visibility = "hidden"
+
+    darkMode = loadData("darkMode")
+    if (!darkMode || darkMode === NaN) {
+        saveData(false, "darkMode")
+        darkMode = false
+    }
+
+    const darkModeButton = document.querySelector("#dark-mode")
+
+    if (darkMode && darkMode !== "false") {
+        darkModeButton.setAttribute("src", "../images/sun.png")
+    }
+    else {
+        darkModeButton.setAttribute("src", "../images/moon.png")
+    }
+
+    darkModeButton.addEventListener("click", () => {
+        darkMode = !darkMode
+        saveData(darkMode, "darkMode")
+
+        if (darkMode && darkMode !== "false") {
+            darkModeButton.setAttribute("src", "../images/sun.png")
+        }
+        else {
+            darkModeButton.setAttribute("src", "../images/moon.png")
+        }
+
+        changeMode()
+    })
+
+    changeMode()
 
     aUmlautButton.addEventListener("click", () => {
         let letter = "ä"
@@ -1021,7 +971,7 @@ function main(){
 
         insertLetterAtCursor(letter)
 
-        userInput.focus()
+        focusInput.focus()
     })
     oUmlautButton.addEventListener("click", () => {
         let letter = "ö"
@@ -1029,7 +979,7 @@ function main(){
 
         insertLetterAtCursor(letter)
 
-        userInput.focus()
+        focusInput.focus()
     })
     uUmlautButton.addEventListener("click", () => {
         let letter = "ü"
@@ -1037,12 +987,12 @@ function main(){
 
         insertLetterAtCursor(letter)
 
-        userInput.focus()
+        focusInput.focus()
     })
     sharpSButton.addEventListener("click", () => {
         insertLetterAtCursor("ß")
 
-        userInput.focus()
+        focusInput.focus()
     })
     upperCaseButton.addEventListener("click", () => {
         upperCase = !upperCase
@@ -1072,10 +1022,6 @@ function main(){
 
         dataHolder.updateData("skip-correct-answer", skipCorrectAnswer)
     })
-    hintButton.addEventListener("click", giveHint)
-    flipWordsButton.addEventListener("click", flipWords)
-    wordsListButton.addEventListener("click", openWordListPreview)
-    wordsListButton2.addEventListener("click", closeWordListPreview)
 
     let upperCaseData = dataHolder.getDataEntries("upper-case")
     if (upperCaseData.length > 0){
@@ -1101,23 +1047,8 @@ function main(){
         dataHolder.addData("skip-correct-answer", false)
     }
 
-    let flipWordsData = dataHolder.getDataEntries("flip-words")
-    if (flipWordsData.length > 0){
-        if (flipWordsData[0][1]){
-            if (language === "de"){
-                language = "cz"
-            }
-            else{
-                language = "de"
-            }
-        }
-    }
-    else {
-        dataHolder.addData("flip-words", false)
-    }
-
     speachText.volume = 1
-    repeatWord.style.visibility = "hidden"
+    wordsListPreview.style.visibility = "hidden"
 
     let ttsData = dataHolder.getDataEntries("tts")
     if (ttsData.length > 0){
@@ -1129,49 +1060,15 @@ function main(){
         dataHolder.addData("tts", false)
     }
 
-    const lections = getLectionFileNames()
-    const primaryLection = lections[0]
-
-    updateHTMLSelect(wordsRange)
-
-    currentFileName = primaryLection[0]
-    wordsRange.addEventListener("change", onWordsRangeChange)
-
-    loadLection("..", lections[0][0], onWordFileLoad)
-
-    allWordsSeenMark.style.visibility = "hidden"
-    wordsListPreviewSection.style.visibility = "hidden"
-
-    darkMode = loadData("darkMode")
-    if (!darkMode || darkMode === NaN) {
-        saveData(false, "darkMode")
-        darkMode = false
-    }
-
-    const darkModeButton = document.querySelector("#dark-mode")
-
-    if (darkMode && darkMode !== "false"){
-        darkModeButton.setAttribute("src", "../images/sun.png")
-    }
-    else {
-        darkModeButton.setAttribute("src", "../images/moon.png")
-    }
-
-    darkModeButton.addEventListener("click", () => {
-        darkMode = !darkMode
-        saveData(darkMode, "darkMode")
-
-        if (darkMode && darkMode !== "false"){
-            darkModeButton.setAttribute("src", "../images/sun.png")
-        }
-        else {
-            darkModeButton.setAttribute("src", "../images/moon.png")
-        }
-
-        changeMode()
+    document.addEventListener("keydown", onKeyDown)
+    document.addEventListener("keyup", onKeyUp)
+    focusInput = deUserInput
+    deUserInput.addEventListener("focus", () => {
+        focusInput = deUserInput
     })
-
-    changeMode()
+    perfektUserInput.addEventListener("focus", () => {
+        focusInput = perfektUserInput
+    })
 
     window.addEventListener("beforeunload", saveDataHolderData)
     document.addEventListener("visibilitychange", saveDataHolderData)

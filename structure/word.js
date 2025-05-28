@@ -3,6 +3,8 @@ export class word{
         this.czWord = czWord
         this.deWord = deWord
         this.alts = [altWord, alt2Word]
+        this.perfekt = null
+        this.perfektPossibleAnswers = []
         this.correct = 0
         this.incorrect = 0
         this.timesDisplayed = 0
@@ -78,5 +80,47 @@ export class word{
                 this.czPossibleAnswers = possibleAnswers
             }
         }
+    }
+
+    updatePerfekt(){
+        if (!this.perfekt) return
+
+        let possibleAnswers = []
+        let correctWordString = this.perfekt
+
+        let currentlyBuildedWord = ""
+        for (let i = 0; i < correctWordString.length; i++) {
+            const letter = correctWordString.slice(i, i + 1)
+
+            if (letter === ",") {
+                possibleAnswers.push(currentlyBuildedWord)
+                currentlyBuildedWord = ""
+                continue
+            }
+
+            if (letter === " ") {
+                if (correctWordString.slice(i - 1, i) === "," || correctWordString.slice(i + 1, i + 2) === "(") {
+                    continue
+                }
+            }
+
+            if (letter === "(") {
+                possibleAnswers.push(currentlyBuildedWord)
+                currentlyBuildedWord = ""
+                continue
+            }
+
+            if (letter === ")") {
+                possibleAnswers.push(currentlyBuildedWord)
+                currentlyBuildedWord = ""
+                continue
+            }
+
+            currentlyBuildedWord += letter
+
+            if (i === correctWordString.length - 1) possibleAnswers.push(currentlyBuildedWord)
+        }
+
+        this.perfektPossibleAnswers = possibleAnswers
     }
 }

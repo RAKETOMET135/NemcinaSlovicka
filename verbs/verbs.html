@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="x-icon" href="../images/WebsiteIcon_larger.png">
+    <title>Němčina Slovíčka - Perfektum sloves</title>
+    <link rel="stylesheet" href="../nav.css">
+    <link rel="stylesheet" href="verbs.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div id="nav-logo">
+                <img src="../images/WebsiteIcon_larger.png" alt="">
+                <p id="nav-logo-text">Němčina slovíčka</p>
+            </div>
+            <img id="dark-mode" src="../images/moon.png" alt="">
+        </nav>
+    </header>
+
+    <section id="main-section">
+        <div id="display-word-holder">
+            <p id="display-word">vzhled</p>
+            <p id="repeat-word">Zopakovat slovo</p>
+        </div>
+        <div id="input-holder">
+            <input id="de-input" type="text" placeholder="Napiš překlad" type="text" spellcheck="false" autocomplete="off">
+            <input id="perfekt-input" type="text" placeholder="Napiš perfektum" type="text" spellcheck="false" autocomplete="off">
+            <button id="submit-answer"></button>
+            <button id="tts-button"></button>
+        </div>
+    </section>
+
+    <section id="helper-section">
+        <div id="buttons-holder">
+            <button id="a-umlaut-button"></button>
+            <button id="o-umlaut-button"></button>
+            <button id="u-umlaut-button"></button>
+            <button id="sharp-s-button"></button>
+            <br>
+            <button id="upper-case-button"></button>
+            <button id="hint-button"></button>
+            <button id="skip-correct-answer-button"></button>
+        </div>
+    </section>
+
+    <section id="stats-section">
+        <div id="correct-stat">
+            <div>
+                <img src="../images/Correct.png" alt="">
+                <p id="correct">0</p>
+            </div>
+        </div>
+        <div id="incorrect-stat">
+            <div>
+                <img src="../images/Incorrect.png" alt="">
+                <p id="incorrect">0</p>
+            </div>
+        </div>
+        <div id="streak-stat">
+            <div>
+                <img id="streak-img" src="../images/Streak.png" alt="">
+                <p id="streak">0</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="selection-section">
+        <p id="words-range-header">Oblast slovíček</p>
+        <select name="Oblast slovíček" id="words-range"></select>
+        <img src="../images/Correct.png" id="all-words-seen-mark" alt="">
+        <button id="words-list-button"></button>
+    </section>
+
+    <section id="words-list-preview">
+        <h2 id="words-list-header">Seznam slovíček</h2>
+        <div id="words-list-basic-data">
+            <p id="basic-data"></p>
+        </div>
+        <div id="words-list-words"></div>
+        <button id="words-list-button2"></button>
+    </section>
+
+    <script src="../loader/data_saver.js" type="module"></script>
+    <script src="../loader/lection_loader.js" type="module"></script>
+    <script type="module" src="verbs.js"></script>
+</body>
+</html>

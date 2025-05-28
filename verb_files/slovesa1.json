@@ -1,0 +1,23 @@
+{
+    "words":[
+        {"cz": "spát", "de": "schlafen", "perfekt": "hat geschlafen, h. geschlafen"},
+        {"cz": "jet", "de": "fahren", "perfekt": "ist gefahren, i. gefahren"},
+        {"cz": "jíst", "de": "essen", "perfekt": "hat gegessen, h. gegessen"},
+        {"cz": "dát, dávat", "de": "geben", "perfekt": "hat gegeben, h. gegeben"},
+        {"cz": "číst", "de": "lesen", "perfekt": "hat gelesen, h. gelesen"},
+        {"cz": "vidět, dívat se", "de": "sehen", "perfekt": "hat gesehen, h. gesehen"},
+        {"cz": "zapomenout", "de": "vergessen", "perfekt": "hat vergessen, h. vergessen"},
+        {"cz": "dostat", "de": "bekommen", "perfekt": "hat bekommen, h. bekommen"},
+        {"cz": "jít, přijít, jet, přijet", "de": "kommen", "perfekt": "ist gekommen, i. gekommen"},
+        {"cz": "volat, zavolat", "de": "anrufen", "perfekt": "hat angerufen, h. angerufen"},
+        {"cz": "zůstat", "de": "blieben", "perfekt": "ist geblieben, i. geblieben"},
+        {"cz": "psát", "de": "schreiben", "perfekt": "hat geschrieben, h. geschrieben"},
+        {"cz": "jít, chodit", "de": "gehen", "perfekt": "ist gegangen, i. gegangen"},
+        {"cz": "ztratit", "de": "verlieren", "perfekt": "hat verloren, h. verloren"},
+        {"cz": "pomoci, pomáhat", "de": "helfen", "perfekt": "hat geholfen, h. geholfen"},
+        {"cz": "vzít, brát", "de": "nehmen", "perfekt": "hat genommen, h. genommen"},
+        {"cz": "mluvit", "de": "sprechen", "perfekt": "hat gesprochen, h. gesprochen"},
+        {"cz": "potkat se, setkat se, trefit, zasáhnout", "de": "treffen", "perfekt": "hat getroffen, h. getroffen"},
+        {"cz": "pít", "de": "trinken", "perfekt": "hat getrunken, h. getrunken"}
+    ]
+}

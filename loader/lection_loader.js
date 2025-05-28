@@ -168,6 +168,52 @@ export function loadLection(webRootPath, fileName, onLoadFunction){
     }
 }
 
+export function loadVerbFile(webRootPath, fileName, onLoadFunction){
+    const fullPath = `${webRootPath}/verb_files/${fileName}`
+
+    let http = new XMLHttpRequest()
+    http.open("get", fullPath, true)
+    http.send()
+
+    http.onload = function() {
+        if (this.readyState === 4 && this.status === 200){
+            const data = JSON.parse(this.responseText)
+
+            let wordList = []
+
+            for(let fileWord of data.words){
+                const w = new word(fileWord.cz, fileWord.de, fileWord.alt, fileWord.alt2, fileWord.priority)
+                w.perfekt = fileWord.perfekt
+                w.updatePerfekt()
+
+                wordList.push(w)
+            }
+
+            let lang1 = "CZ"
+            let lang2 = "DE"
+
+            if (data.lang1){
+                lang1 = data.lang1
+            }
+            if (data.lang2){
+                lang2 = data.lang2
+            }
+
+            onLoadFunction(wordList, [lang1, lang2])
+        }
+    }
+}
+
+export function getVerbFileNames(){
+    const verbFileNameList = [
+        ["slovesa1.json", "Slovesa 1"]
+    ]
+
+    let primaryVerbFile = verbFileNameList[0]
+
+    return [primaryVerbFile, verbFileNameList]
+}
+
 export function getLectionFileNames(){
     const lectionNameList = [
         ["lekce14vyber.json", "Lekce 14 - výběr 1"],
@@ -259,6 +305,28 @@ export function updateHTMLSelect(htmlSelect){
     fileUploadOption.innerText = "Nahrát .json soubor"
 
     htmlSelect.append(fileUploadOption)
+}
+
+export function updateHTMLSelectVerbFile(htmlSelect){
+    const verbFilesData = getVerbFileNames()
+
+    while (htmlSelect.children.length > 0){
+        htmlSelect.firstChild.remove()
+    }
+
+    for (let i = 0; i < verbFilesData[1].length; i++){
+        const verbFileName = verbFilesData[1][i]
+
+        const option = document.createElement("option")
+        option.value = verbFileName[0]
+        option.innerText = verbFileName[1]
+
+        if (verbFileName[0] === verbFilesData[0][0] && currentPageReloadFileIndex < 0){
+            option.selected = true
+        }
+
+        htmlSelect.append(option)
+    }
 }
 
 function onLoad(){

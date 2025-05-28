@@ -31,6 +31,7 @@ function main(){
     const wordsListButton = document.querySelector("#words-list-card")
     const customeWordsButton = document.querySelector("#custome-words-card")
     const timeChallengeButton = document.querySelector("#time-challenge-card")
+    const verbButton = document.querySelector("#verb-card")
 
     standartButton.addEventListener("click", () => {
         window.location.href = "../default/default.html"
@@ -46,6 +47,9 @@ function main(){
     })
     timeChallengeButton.addEventListener("click", () => {
         window.location.href = "../time_challenge/time_challenge.html"
+    })
+    verbButton.addEventListener("click", () => {
+        window.location.href = "../verbs/verbs.html"
     })
 
     darkMode = loadData("darkMode")

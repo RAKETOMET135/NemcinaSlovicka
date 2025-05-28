@@ -430,12 +430,13 @@ body {
         width: 80%;
     }
     #buttons-holder {
-        width: 60%;
+        width: 70%;
         translate: -50% 50%;
         flex-wrap: wrap;
     }
     #buttons-holder > button {
         margin-bottom: 1em;
+        height: 82%;
     }
     #stats-section {
         translate: -50% 25%;

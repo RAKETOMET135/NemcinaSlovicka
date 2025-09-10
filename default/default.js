@@ -100,6 +100,11 @@ function onWordFileLoad(newWordFile, lang){
 
     displayNextWord()
 
+    submitState = "submit"
+    userInput.readOnly = false
+    userInput.style.color = "white"
+    submitButton.style.setProperty("--before-content", '"✓"')
+
     if (sessionDataLoaded) return
 
     sessionDataLoaded = true

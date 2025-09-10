@@ -1,0 +1,33 @@
+{
+    "words":[
+        {"cz": "angína", "de": "die Angina"},
+        {"cz": "horečka", "de": "das Fieber"},
+        {"cz": "zácpa", "de": "die Verstopfung"},
+        {"cz": "průjem", "de": "der Durchfall"},
+        {"cz": "chřipka", "de": "die Grippe"},
+        {"cz": "rýma", "de": "der Schnupfen"},
+        {"cz": "kašel", "de": "der Husten"},
+        {"cz": "nemoc, choroba", "de": "die Krankheit"},
+        {"cz": "nemoci, choroby", "de": "die Krankheiten"},
+        {"cz": "prohlédnout, vyšetřit", "de": "untersuchen"},
+        {"cz": "pacient", "de": "der Patient"},
+        {"cz": "vyšetřit pacientku, prohlédnout pacientku", "de": "die Patientin untersuchen"},
+        {"cz": "zranit se", "de": "sich verletzen"},
+        {"cz": "bolest břicha", "de": "der Bauchschmerzen"},
+        {"cz": "bolet", "de": "wehtun"},
+        {"cz": "zvracet", "de": "sich erbrechen"},
+        {"cz": "krvácet", "de": "bluten"},
+        {"cz": "u lékaře", "de": "beim Arzt"},
+        {"cz": "spálit se, popálit se", "de": "sich verbrennen"},
+        {"cz": "necítit se dobře", "de": "sich nicht wohlfühlen"},
+        {"cz": "zavolat záchranku, zavolat sanitku", "de": "den Rettungswagen rufen"},
+        {"cz": "zavolat lékaře pohotovostní služby, zavolat záchrannou službu", "de": "den Notarzt rufen"},
+        {"cz": "vymknout si nohu, podvrtnout si nohu", "de": "sich den Fuß verstauchen"},
+        {"cz": "předepsat léky, naordinovat léky", "de": "die Medikamente verschreiben"},
+        {"cz": "ordinace, ordinace lékaře, lékařská praxe", "de": "die Arztpraxis"},
+        {"cz": "zdravotní pojišťovna", "de": "die Krankenkasse"},
+        {"cz": "očkovat", "de": "impfen"},
+        {"cz": "předložit průkaz pojištěnce, předložit kartu pojištěnce", "de": "die Versicherungskarte zeigen, die Versichertenkarte zeigen"},
+        {"cz": "zdraví", "de": "die Gesundheit"}
+    ]
+}

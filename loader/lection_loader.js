@@ -150,7 +150,13 @@ export function loadLection(webRootPath, fileName, onLoadFunction){
             let wordList = []
 
             for(let fileWord of data.words){
-                wordList.push(new word(fileWord.cz, fileWord.de, fileWord.alt, fileWord.alt2, fileWord.priority))
+                const w = new word(fileWord.cz, fileWord.de, fileWord.alt, fileWord.alt2, fileWord.priority)
+
+                wordList.push(w)
+
+                if (fileWord.word_order){
+                    w.wordOrder = fileWord.word_order
+                }
             }
 
             let lang1 = "CZ"
@@ -216,6 +222,7 @@ export function getVerbFileNames(){
 
 export function getLectionFileNames(){
     const lectionNameList = [
+        ["spojky.json", "Spojky"],
         ["lekce14gesundheit.json", "Lekce 14 - Gesundheit"],
         ["lekce14vyber.json", "Lekce 14 - výběr 1"],
         ["lekce13_str39-42.json", "Lekce 13 - str 39-42"],

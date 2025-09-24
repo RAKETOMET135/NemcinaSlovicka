@@ -469,6 +469,15 @@ function displayNextWord(){
 
     if (language === "de"){
         displayWord.innerText = pickedWord.czWord
+
+        if (pickedWord.wordOrder){
+            if (pickedWord.wordOrder === 1){
+                displayWord.innerText += " (přímý pořádek slov)"
+            }
+            else{
+                displayWord.innerText += " (nepřímý pořádek slov)"
+            }
+        }
     }
     else{
         displayWord.innerText = pickedWord.deWord
@@ -771,6 +780,23 @@ function addListWordsToPreview(){
 
         let zima2 = document.createElement("br")
         wordElement.append(zima2)
+
+        if (thisWord.wordOrder){
+            let wordOrderSpan = document.createElement("span")
+            wordElement.append(wordOrderSpan)
+            wordOrderSpan.style.color = "purple"
+            wordOrderSpan.style.fontWeight = "bold"
+            
+            if (thisWord.wordOrder === 1){
+                wordOrderSpan.innerText = "Přímý pořádek slov"
+            }
+            else{
+                wordOrderSpan.innerText = "Nepřímý pořádek slov"
+            }
+
+            let wordOrderZime = document.createElement("br")
+            wordElement.append(wordOrderZime)
+        }
 
         let correctStart = document.createElement("span")
         wordElement.append(correctStart)

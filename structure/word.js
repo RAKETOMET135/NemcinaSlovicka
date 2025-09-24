@@ -12,6 +12,7 @@ export class word{
         this.chance = 0
         this.streak = 0
         this.maxStreak = 0
+        this.wordOrder = null
 
         if (priority){
             this.priority = priority

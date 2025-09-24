@@ -1,0 +1,16 @@
+{
+    "words": [
+        {"cz": "a", "de": "und", "word_order": 1},
+        {"cz": "ale", "de": "aber", "word_order": 1},
+        {"cz": "protože, neboť", "de": "denn", "word_order": 1},
+        {"cz": "nebo", "de": "oder", "word_order": 1},
+        {"cz": "nýbrž", "de": "sondern", "word_order": 1},
+        {"cz": "mimo to, kromě toho", "de": "außerdem", "word_order": 2},
+        {"cz": "pak, potom", "de": "dann", "word_order": 2},
+        {"cz": "proto, z toho důvodu", "de": "darum, deswegen", "word_order": 2},
+        {"cz": "proto, tedy, tudíž", "de": "deshalb", "word_order": 2},
+        {"cz": "proto, z toho důvodu", "de": "deswegen, darum", "word_order": 2},
+        {"cz": "jinak", "de": "sonst", "word_order": 2},
+        {"cz": "přesto", "de": "trotzdem", "word_order": 2}
+    ]
+}

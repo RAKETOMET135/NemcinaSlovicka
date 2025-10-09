@@ -1048,6 +1048,8 @@ function changeInputType(isDoubleInput){
 function main(){
     dataHolder.loadData()
 
+    perfektInput.style.display = "none"
+
     const navLogo = document.querySelector("#nav-logo")
     navLogo.addEventListener("click", () => {
         window.location.href = "../index.html"

@@ -63,7 +63,7 @@ body {
     cursor: pointer;
     font-family: "DynaPuff";
 }
-#user-input {
+#user-input, #perfekt-input {
     position: absolute;
     width: 100%;
     outline: none;
@@ -79,6 +79,9 @@ body {
     font-size: 1.5rem;
     text-align: center;
     font-family: "DynaPuff";
+}
+#perfekt-input {
+    display: none;
 }
 
 #submit-answer, #tts-button {

@@ -10,12 +10,14 @@ const helperSection = document.querySelector("#helper-section")
 const statsSection = document.querySelector("#stats-section")
 const selectionSection = document.querySelector("#selection-section")
 const wordsListPreviewSection = document.querySelector("#words-list-preview")
+const display = document.querySelector("#display")
 
 const wordsListBasicData = document.querySelector("#basic-data")
 const wordsListWords = document.querySelector("#words-list-words")
 
 const displayWord = document.querySelector("#display-word")
 const userInput = document.querySelector("#user-input")
+const perfektInput = document.querySelector("#perfekt-input")
 const submitButton = document.querySelector("#submit-answer")
 const ttsButton = document.querySelector("#tts-button")
 const repeatWord = document.querySelector("#repeat-word")
@@ -1027,6 +1029,19 @@ function loadSessionData(){
     if (submitState === "submitted"){
         userInput.readOnly = true
         submitButton.style.setProperty("--before-content", '"➔"')
+    }
+}
+
+function changeInputType(isDoubleInput){
+    if (isDoubleInput) {
+        perfektInput.style.display = "block"
+        userInput.style.translate = "0 -175%"
+        display.style.height = "55%"
+    }   
+    else {
+        perfektInput.style.display = "none"
+        userInput.style.translate = "0 -50%"
+        display.style.height = "70%"
     }
 }
 

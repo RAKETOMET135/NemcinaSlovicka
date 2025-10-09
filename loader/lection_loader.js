@@ -222,6 +222,7 @@ export function getVerbFileNames(){
 
 export function getLectionFileNames(){
     const lectionNameList = [
+        ["lekce15vyber1.json", "Lekce 15 - výběr 1"],
         ["spojky.json", "Spojky"],
         ["lekce14gesundheit.json", "Lekce 14 - Gesundheit"],
         ["lekce14vyber.json", "Lekce 14 - výběr 1"],

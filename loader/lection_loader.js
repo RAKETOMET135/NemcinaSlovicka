@@ -212,6 +212,7 @@ export function loadVerbFile(webRootPath, fileName, onLoadFunction){
 
 export function getVerbFileNames(){
     const verbFileNameList = [
+        ["slovesa_lekce15.json", "Lekce 15 - výběr 1"],
         ["slovesa1.json", "Slovesa 1"]
     ]
 

@@ -282,6 +282,15 @@ function displayNextWord(){
 
     currentWord = pickedWord
     prevWord = pickedWord
+
+    if (pickedWord.perfektPossibleAnswers && pickedWord.perfektPossibleAnswers[0]){
+        perfektUserInput.style.display = "block"
+        deUserInput.style.translate = "none"
+    }
+    else{
+        perfektUserInput.style.display = "none"
+        deUserInput.style.translate = "0 50%"
+    }
 }
 
 function updateWordsData(correct){
@@ -316,7 +325,11 @@ function updateWordsData(correct){
 
 function checkInput(deInputString, perfektInputString){
     let deCorrect = checkInputSingle(deInputString, false)
-    let perfektCorrect = checkInputSingle(perfektInputString, true)
+    let perfektCorrect = true
+
+    if (currentWord.perfektPossibleAnswers && currentWord.perfektPossibleAnswers[0]) {
+        perfektCorrect = checkInputSingle(perfektInputString, true)
+    }
 
     return deCorrect && perfektCorrect
 }
@@ -414,10 +427,12 @@ function submitAnswer(){
                 deUserInput.value += " --> " + deCorrectAnswer
             }
 
-            if (!checkInputSingle(perfektUserInput.value, true)){
-                let perfektCorrectAnswer = currentWord.perfektPossibleAnswers[0]
+            if (currentWord.perfektPossibleAnswers && currentWord.perfektPossibleAnswers[0]){
+                if (!checkInputSingle(perfektUserInput.value, true)) {
+                    let perfektCorrectAnswer = currentWord.perfektPossibleAnswers[0]
 
-                perfektUserInput.value += " --> " + perfektCorrectAnswer
+                    perfektUserInput.value += " --> " + perfektCorrectAnswer
+                }
             }
 
             deUserInput.style.color = incorrectColor
@@ -582,18 +597,20 @@ function addListWordsToPreview(){
         deWordSpan.style.color = "white"
         deWordSpan.innerText = thisWord.deWord
 
-        let zima7 = document.createElement("br")
-        wordElement.append(zima7)
+        if (thisWord.perfektPossibleAnswers && thisWord.perfektPossibleAnswers[0]) {
+            let zima7 = document.createElement("br")
+            wordElement.append(zima7)
 
-        let perfektSpan = document.createElement("span")
-        wordElement.append(perfektSpan)
-        perfektSpan.style.color = "purple"
-        perfektSpan.style.fontWeight = "bold"
-        perfektSpan.innerText = " perfekt: "
-        let perfektWordSpan = document.createElement("span")
-        wordElement.append(perfektWordSpan)
-        perfektWordSpan.style.color = "white"
-        perfektWordSpan.innerText = thisWord.perfektPossibleAnswers[0]
+            let perfektSpan = document.createElement("span")
+            wordElement.append(perfektSpan)
+            perfektSpan.style.color = "purple"
+            perfektSpan.style.fontWeight = "bold"
+            perfektSpan.innerText = " perfekt: "
+            let perfektWordSpan = document.createElement("span")
+            wordElement.append(perfektWordSpan)
+            perfektWordSpan.style.color = "white"
+            perfektWordSpan.innerText = thisWord.perfektPossibleAnswers[0]
+        }
 
         let zima2 = document.createElement("br")
         wordElement.append(zima2)
@@ -758,7 +775,12 @@ function onKeyDown(event){
         }
         else{
             if (deUserInput === document.activeElement) {
-                perfektUserInput.focus()
+                if (currentWord.perfektPossibleAnswers && currentWord.perfektPossibleAnswers[0]){
+                    perfektUserInput.focus()
+                }
+                else {
+                    submitAnswer()
+                }
             }
             else if (perfektUserInput === document.activeElement) {
                 submitAnswer()

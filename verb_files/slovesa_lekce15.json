@@ -1,0 +1,30 @@
+{
+    "words": [
+        {"cz": "silný", "de": "stark"},
+        {"cz": "sportovní výsledky", "de": "die Sportergebnisse"},
+        {"cz": "rybolov", "de": "das Angeln"},
+        {"cz": "šerm", "de": "das Fechten"},
+        {"cz": "jízda na koni", "de": "das Reiten"},
+        {"cz": "jachting", "de": "das Segeln"},
+        {"cz": "potápění", "de": "das Tauchen"},
+        {"cz": "uznaný", "de": "anerkannt"},
+        {"cz": "užívat si, vychutnávat si", "de": "genießen", "perfekt": "hat genossen, h. genossen"},
+        {"cz": "myslet si, soudit", "de": "halten", "perfekt": "hat gehalten, h. gehalten"},
+        {"cz": "myslet si o, soudit o", "de": "halten von"},
+        {"cz": "bojovat", "de": "kämpfen", "perfekt": "hat gekämpft, h. gekämpft"},
+        {"cz": "bojovat proti", "de": "kämpfen gegen"},
+        {"cz": "vzduch", "de": "die Luft"},
+        {"cz": "sval", "de": "der Muskel"},
+        {"cz": "střílet", "de": "schießen", "perfekt": "hat geschossen, h. geschossen"},
+        {"cz": "prohrát", "de": "verlieren", "perfekt": "hat verloren, h. verloren"},
+        {"cz": "závod, soutěž, zápas", "de": "der Wettkampf"},
+        {"cz": "rukavice", "de": "der Handschuh"},
+        {"cz": "lano", "de": "das Seil"},
+        {"cz": "trest", "de": "die Strafe"},
+        {"cz": "branka, brána", "de": "das Tor"},
+        {"cz": "strach", "de": "die Angst"},
+        {"cz": "naděje", "de": "die Hoffnung"},
+        {"cz": "plakat", "de": "weinen", "perfekt": "hat geweint, h. geweint"},
+        {"cz": "kouzlit", "de": "zaubern", "perfekt": "hat gezaubert, h. gezaubert"}
+    ]
+}

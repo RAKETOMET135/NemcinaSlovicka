@@ -140,6 +140,15 @@ function loadSessionData(){
 
     currentWord = sessionPageData.wordDisplayed
 
+     if (currentWord.perfektPossibleAnswers && currentWord.perfektPossibleAnswers[0]){
+        perfektUserInput.style.display = "block"
+        deUserInput.style.translate = "none"
+    }
+    else{
+        perfektUserInput.style.display = "none"
+        deUserInput.style.translate = "0 50%"
+    }
+
     displayWord.innerText = currentWord.czWord
 
     submitState = sessionPageData.submitState

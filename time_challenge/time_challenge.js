@@ -122,7 +122,7 @@ function onKeyDown(event){
         altHolded = true
     }
 
-    if (altHolded){
+    if (event.altKey){
         if (event.key === "a"){
             insertLetterAtCursor("ä")
             userInput.focus()

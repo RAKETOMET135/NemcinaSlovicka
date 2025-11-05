@@ -1,0 +1,25 @@
+{
+    "words": [
+        {"cz": "strach", "de": "die Angst"},
+        {"cz": "naděje", "de": "die Hoffnung"},
+        {"cz": "plakat", "de": "weinen", "perfekt": "hat geweint, h. geweint"},
+        {"cz": "kouzlit", "de": "zaubern", "perfekt": "hat gezaubert, h. gezaubert"},
+        {"cz": "začátečník", "de": "der Anfänger"},
+        {"cz": "výstroj, vybavení", "de": "die Ausrüstung"},
+        {"cz": "událost", "de": "das Ereignis"},
+        {"cz": "pokročilý", "de": "der Fortgeschrittene"},
+        {"cz": "spolek, klub", "de": "der Verein"},
+        {"cz": "divák", "de": "der Zuschauer"},
+        {"cz": "pilný, pracovitý", "de": "fleißig"},
+        {"cz": "měnit, změnit, upravit", "de": "ändern", "perfekt": "hat geändert, h. geändert"},
+        {"cz": "pohyb", "de": "die Bewegung"},
+        {"cz": "následek, důsledek", "de": "die Folge"},
+        {"cz": "důvod", "de": "der Grund"},
+        {"cz": "srdce", "de": "das Herz"},
+        {"cz": "kost", "de": "der Knochen"},
+        {"cz": "rakovina", "de": "der Krebs"},
+        {"cz": "přehnaný", "de": "übertrieben"},
+        {"cz": "zveřejnit, publikovat", "de": "veröffentlichen", "perfekt": "hat veröffentlicht, h. veröffentlicht"},
+        {"cz": "zároveň, současně", "de": "zugleich"}
+    ]
+}

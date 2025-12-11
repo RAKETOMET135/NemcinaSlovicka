@@ -25,7 +25,7 @@
         {"cz": "dávat pozor, dohlížet na koho, dohlížet na co", "de": "aufpassen", "perfekt": "hat aufgepasst, h. aufgepasst"},
         {"cz": "vkus", "de": "der Geschmack"},
         {"cz": "válka", "de": "der Krieg"},
-        {"cz": "ohlásit, oznámit", "de": "melden"},
+        {"cz": "ohlásit, oznámit", "de": "melden", "perfekt": "hat gemeldet, h. gemeldet"},
         {"cz": "zákaz", "de": "das Verbot"},
         {"cz": "zfilmovat", "de": "verfilmen", "perfekt": "hat verfilmt, h. verfilmt"},
         {"cz": "zradit", "de": "verraten", "perfekt": "hat verraten, h. verraten"},

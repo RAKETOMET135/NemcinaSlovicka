@@ -191,6 +191,8 @@ export function loadVerbFile(webRootPath, fileName, onLoadFunction){
                 const w = new word(fileWord.cz, fileWord.de, fileWord.alt, fileWord.alt2, fileWord.priority)
                 w.perfekt = fileWord.perfekt
                 w.updatePerfekt()
+                w.perfekt_alt = fileWord.perfekt_alt
+                w.updatePerfekt_alt()
 
                 wordList.push(w)
             }

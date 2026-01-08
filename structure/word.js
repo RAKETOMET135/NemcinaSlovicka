@@ -5,6 +5,8 @@ export class word{
         this.alts = [altWord, alt2Word]
         this.perfekt = null
         this.perfektPossibleAnswers = []
+        this.perfekt_alt = null
+        this.perfektPossibleAnswers_alt = []
         this.correct = 0
         this.incorrect = 0
         this.timesDisplayed = 0
@@ -26,15 +28,6 @@ export class word{
             let correctWordString
 
             if (index === 0){
-                for (let i = 0; i < this.alts.length; i++){
-                    const alt = this.alts[i]
-        
-                    if (!alt) continue
-                    if (alt === "") continue
-        
-                    possibleAnswers.push(alt)
-                }
-        
                 correctWordString = this.deWord
             }
             else{
@@ -81,6 +74,15 @@ export class word{
                 this.czPossibleAnswers = possibleAnswers
             }
         }
+
+        for (let i = 0; i < this.alts.length; i++) {
+            const alt = this.alts[i]
+
+            if (!alt) continue
+            if (alt === "") continue
+
+            this.dePossibleAnswers.push(alt)
+        }
     }
 
     updatePerfekt(){
@@ -123,5 +125,47 @@ export class word{
         }
 
         this.perfektPossibleAnswers = possibleAnswers
+    }
+
+    updatePerfekt_alt(){
+        if (!this.perfekt_alt) return
+
+        let possibleAnswers = []
+        let correctWordString = this.perfekt_alt
+
+        let currentlyBuildedWord = ""
+        for (let i = 0; i < correctWordString.length; i++) {
+            const letter = correctWordString.slice(i, i + 1)
+
+            if (letter === ",") {
+                possibleAnswers.push(currentlyBuildedWord)
+                currentlyBuildedWord = ""
+                continue
+            }
+
+            if (letter === " ") {
+                if (correctWordString.slice(i - 1, i) === "," || correctWordString.slice(i + 1, i + 2) === "(") {
+                    continue
+                }
+            }
+
+            if (letter === "(") {
+                possibleAnswers.push(currentlyBuildedWord)
+                currentlyBuildedWord = ""
+                continue
+            }
+
+            if (letter === ")") {
+                possibleAnswers.push(currentlyBuildedWord)
+                currentlyBuildedWord = ""
+                continue
+            }
+
+            currentlyBuildedWord += letter
+
+            if (i === correctWordString.length - 1) possibleAnswers.push(currentlyBuildedWord)
+        }
+
+        this.perfektPossibleAnswers_alt = possibleAnswers
     }
 }

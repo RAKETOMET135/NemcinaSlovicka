@@ -336,14 +336,54 @@ function checkInput(deInputString, perfektInputString){
     let deCorrect = checkInputSingle(deInputString, false)
     let perfektCorrect = true
 
-    if (currentWord.perfektPossibleAnswers && currentWord.perfektPossibleAnswers[0]) {
-        perfektCorrect = checkInputSingle(perfektInputString, true)
+    if (!currentWord.perfekt_alt) {
+        if (currentWord.perfektPossibleAnswers && currentWord.perfektPossibleAnswers[0]) {
+            perfektCorrect = checkInputSingle(perfektInputString, true)
+        }
+    }
+    else if (!deCorrect){
+        let nonAltAnsCorrect = false
+        let altAnsCorrect = false
+
+        if (currentWord.perfektPossibleAnswers && currentWord.perfektPossibleAnswers[0]) {
+            nonAltAnsCorrect = checkInputSingle(perfektInputString, true)
+        }
+
+        if (currentWord.perfektPossibleAnswers_alt && currentWord.perfektPossibleAnswers_alt[0]) {
+            altAnsCorrect = checkInputSingle(perfektInputString, true)
+        }
+
+        if (nonAltAnsCorrect || altAnsCorrect) {
+            perfektCorrect = true
+        }
+    }
+    else {
+        let isAltWordUsed = false
+
+        for (let altWord of currentWord.alts) {
+            if (altWord !== deInputString) continue
+
+            isAltWordUsed = true
+
+            break
+        }    
+
+        if (!isAltWordUsed) {
+            if (currentWord.perfektPossibleAnswers && currentWord.perfektPossibleAnswers[0]) {
+                perfektCorrect = checkInputSingle(perfektInputString, true)
+            }
+        }
+        else {
+            if (currentWord.perfektPossibleAnswers_alt && currentWord.perfektPossibleAnswers_alt[0]) {
+                perfektCorrect = checkInputSingle(perfektInputString, true, true)
+            }
+        }
     }
 
     return deCorrect && perfektCorrect
 }
 
-function checkInputSingle(inputString, isPerfekt){
+function checkInputSingle(inputString, isPerfekt, isAlt){
     let possibleAnswers = []
     let userAnswers = []
 
@@ -351,6 +391,10 @@ function checkInputSingle(inputString, isPerfekt){
 
     if (isPerfekt){
         possibleAnswers = currentWord.perfektPossibleAnswers
+
+        if (isAlt) {
+            possibleAnswers = currentWord.perfektPossibleAnswers_alt
+        }
     }
 
     let currentlyBuildedWord = ""
@@ -433,14 +477,52 @@ function submitAnswer(){
             if (!checkInputSingle(deUserInput.value, false)){
                 let deCorrectAnswer = currentWord.dePossibleAnswers[0]
 
+                if (currentWord.perfekt_alt) {
+                    deCorrectAnswer = currentWord.deWord
+                }
+
                 deUserInput.value += " --> " + deCorrectAnswer
             }
 
-            if (currentWord.perfektPossibleAnswers && currentWord.perfektPossibleAnswers[0]){
-                if (!checkInputSingle(perfektUserInput.value, true)) {
-                    let perfektCorrectAnswer = currentWord.perfektPossibleAnswers[0]
+            if (currentWord.perfekt) {
+                if (!currentWord.perfekt_alt) {
+                    if (currentWord.perfektPossibleAnswers && currentWord.perfektPossibleAnswers[0]){
+                        if (!checkInputSingle(perfektUserInput.value, true)) {
+                            let perfektCorrectAnswer = currentWord.perfektPossibleAnswers[0]
 
-                    perfektUserInput.value += " --> " + perfektCorrectAnswer
+                            perfektUserInput.value += " --> " + perfektCorrectAnswer
+                        }
+                    }
+                }
+                else {
+                    let isAltWordUsed = false
+
+                    for (let altWord of currentWord.alts) {
+                        if (altWord !== deUserInput.value) continue
+
+                        isAltWordUsed = true
+
+                        break
+                    }
+
+                    if (!isAltWordUsed) {
+                        if (currentWord.perfektPossibleAnswers && currentWord.perfektPossibleAnswers[0]) {
+                            if (!checkInputSingle(perfektUserInput.value, true)) {
+                                let perfektCorrectAnswer = currentWord.perfektPossibleAnswers[0]
+
+                                perfektUserInput.value += " --> " + perfektCorrectAnswer
+                            }
+                        }
+                    }
+                    else {
+                        if (currentWord.perfektPossibleAnswers_alt && currentWord.perfektPossibleAnswers_alt[0]) {
+                            if (!checkInputSingle(perfektUserInput.value, true, true)) {
+                                let perfektCorrectAnswer = currentWord.perfektPossibleAnswers_alt[0]
+
+                                perfektUserInput.value += " --> " + perfektCorrectAnswer
+                            }
+                        }
+                    }
                 }
             }
 

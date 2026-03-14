@@ -214,6 +214,7 @@ export function loadVerbFile(webRootPath, fileName, onLoadFunction){
 
 export function getVerbFileNames(){
     const verbFileNameList = [
+        ["slovesa_lekce17_2.json", "Lekce 17 - výběr 2"],
         ["slovesa_lekce17.json", "Lekce 17 - výběr 1"],
         ["slovesa_lekce16.json", "Lekce 16 - výběr 1"],
         ["slovesa_lekce16_str86-90.json", "Lekce 16 - str 86-90"],
@@ -229,6 +230,7 @@ export function getVerbFileNames(){
 
 export function getLectionFileNames(){
     const lectionNameList = [
+        ["lekce17vyber2.json", "Lekce 17 - výběr 2"],
         ["lekce17vyber1.json", "Lekce 17 - výběr 1"],
         ["lekce16vyber1.json", "Lekce 16 - výběr 1"],
         ["lekce16_str86-90.json", "Lekce 16 - str 86-90"],

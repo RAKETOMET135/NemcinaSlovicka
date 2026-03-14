@@ -1,0 +1,22 @@
+{
+    "words": [
+        {"cz": "záměr, úmysl", "de": "die Absicht"},
+        {"cz": "tu a tam", "de": "ab und zu"},
+        {"cz": "pozor", "de": "die Achtung"},
+        {"cz": "vzpomenout si, pamatovat si", "de": "sich erinnern", "perfekt": "hat sich erinnert, h. sich erinnert, hat erinnert, h. erinnert"},
+        {"cz": "častý", "de": "häufig"},
+        {"cz": "starat se, pečovat, starat se o, pečovat o", "de": "sich kümmern", "perfekt": "hat sich gekümmert, h. sich gekümmert, hat gekümmert, h. gekümmert"},
+        {"cz": "smůla, pech", "de": "das Pech"},
+        {"cz": "záchrana, záchranná služba", "de": "die Rettung"},
+        {"cz": "čistý", "de": "sauber"},
+        {"cz": "špinavý", "de": "schmutzig"},
+        {"cz": "překvapení", "de": "die Überraschung"},
+        {"cz": "vyskytovat se, existovat", "de": "vorkommen", "perfekt": "ist vorgekommen, i. vorgekommen"},
+        {"cz": "přednést, prezentovat", "de": "vortragen", "perfekt": "hat vorgetragen, h. vorgetragen"},
+        {"cz": "bulvární noviny", "de": "die Boulevardzeitung"},
+        {"cz": "tištěný", "de": "gedruckt"},
+        {"cz": "založit, zřídit", "de": "gründen", "perfekt": "hat gegründet, h. gegründet"},
+        {"cz": "vydat, vydávat", "de": "herausgeben", "perfekt": "hat herausgegeben, h. herausgegeben"},
+        {"cz": "reklama", "de": "die Werbung"}
+    ]
+}

@@ -1,0 +1,32 @@
+{
+    "words": [
+        {"cz": "podmínka", "de": "die Bedingung"},
+        {"cz": "složit, složit zkoušku", "de": "bestehen", "perfekt": "hat bestanden, h. bestanden"},
+        {"cz": "propadnout, proletět, propadnout u zkoušky, proletět u zkoušky", "de": "durchfallen", "perfekt": "ist durchgefallen, i. durchgefallen"},
+        {"cz": "průměr", "de": "der Durchschnitt"},
+        {"cz": "zavést, zavádět", "de": "einführen", "perfekt": "hat eingeführt, h. eingeführt"},
+        {"cz": "otevřít, zahájit", "de": "eröffnen", "perfekt": "hat eröffnet, h. eröffnet"},
+        {"cz": "link", "de": "der Link"},
+        {"cz": "známka", "de": "die Note"},
+        {"cz": "vítěz", "de": "der Sieger"},
+        {"cz": "přehled", "de": "der Überblick"},
+        {"cz": "nadpis", "de": "die Überschrift"},
+        {"cz": "rozdíl", "de": "der Unterschied"},
+        {"cz": "zmizet", "de": "verschwinden", "perfekt": "ist verschwunden, i. verschwunden"},
+        {"cz": "shrnutí", "de": "die Zusammenfassung"},
+        {"cz": "smělý, odvážný", "de": "mutig"},
+        {"cz": "závistivý", "de": "neidisch"},
+        {"cz": "trapný", "de": "peinlich"},
+        {"cz": "obrazovka, monitor", "de": "der Bildschirm"},
+        {"cz": "kyberšikana", "de": "das Cybermobbing"},
+        {"cz": "sledovat", "de": "folgen", "perfekt": "ist gefolgt, i. gefolgt"},
+        {"cz": "zanechat, zanechat po sobě", "de": "hinterlassen", "perfekt": "hat hinterlassen, h. hinterlassen"},
+        {"cz": "influencer", "de": "der Influencer"},
+        {"cz": "zneužít", "de": "missbrauchen", "perfekt": "hat missbraucht, h. missbraucht"},
+        {"cz": "nevýhoda", "de": "der Nachteil"},
+        {"cz": "stydět se, ostýchat se", "de": "sich schämen", "perfekt": "hat sich geschämt, h. sich geschämt, hat geschämt, h. geschämt"},
+        {"cz": "plachý, ostýchavý, nesmělý", "de": "schüchtern"},
+        {"cz": "stopa", "de": "die Spur"},
+        {"cz": "výhoda", "de": "der Vorteil"}
+    ]
+}

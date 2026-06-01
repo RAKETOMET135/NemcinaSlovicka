@@ -2,6 +2,7 @@ import { loadLection, getLectionFileNames, updateHTMLSelect } from "../loader/le
 import { saveData, loadData } from "../loader/data_saver.js"
 import { DataHolder } from "../structure/data_holder.js"
 import { Random } from "../structure/random.js"
+import { WordList } from "../structure/random_word.js"
 
 let dataHolder = new DataHolder("website_data")
 
@@ -51,6 +52,7 @@ let lang1 = "CZ"
 let lang2 = "DE"
 let availableWords = []
 let incorrectWords = []
+let wordList
 
 let skipCorrectAnswer = false
 let submitState = "submit"
@@ -75,6 +77,8 @@ let sessionDataLoaded = false
 
 function onWordFileLoad(newWordFile, lang){
     currentWordFile = newWordFile
+
+    wordList = new WordList(currentWordFile)
 
     lang1 = "CZ"
     lang2 = "DE"
@@ -316,6 +320,8 @@ function submitAnswer(){
 }
 
 function getRandomWord(){
+    return wordList.getRandomWord(currentWord)
+    /*
     let nextWord
 
     if (availableWords.length <= 0){
@@ -335,7 +341,7 @@ function getRandomWord(){
     nextWord = currentWordFile[availableWords[randomWordIndex]]
 
     if (currentWord){
-        while (nextWord === currentWord){
+        while (nextWord === currentWord && currentWordFile.length > 1){
             randomWordIndex = Random.getNumber(0, availableWords.length -1)
 
             nextWord = currentWordFile[availableWords[randomWordIndex]]
@@ -347,6 +353,7 @@ function getRandomWord(){
     }
 
     return nextWord
+    */
 }
 
 function getNextWord(){

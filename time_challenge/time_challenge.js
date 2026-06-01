@@ -1,6 +1,7 @@
 import { saveData, loadData } from "../loader/data_saver.js"
 import { getLectionFileNames, loadLection, updateHTMLSelect } from "../loader/lection_loader.js"
 import { Random } from "../structure/random.js"
+import { WordList } from "../structure/random_word.js"
 
 const userInput = document.querySelector("#user-input")
 const displayWord = document.querySelector("#display-word")
@@ -30,6 +31,7 @@ let answeredWords = 0
 
 let currentWordFile
 let currentWord
+let currentWordList
 
 let darkMode = false
 let altHolded = false
@@ -161,6 +163,8 @@ function onKeyUp(event){
 }
 
 function getRandomWord(){
+    return currentWordList.getRandomWord(currentWord)
+    /*
     let nextWord
 
     if (availableWords.length <= 0) {
@@ -180,7 +184,7 @@ function getRandomWord(){
     nextWord = currentWordFile[availableWords[randomWordIndex]]
 
     if (currentWord){
-        while (nextWord === currentWord){
+        while (nextWord === currentWord && availableWords.length > 1){
             nextWord = currentWordFile[availableWords[randomWordIndex]]
         }
     }
@@ -190,10 +194,13 @@ function getRandomWord(){
     }
 
     return nextWord
+    */
 }
 
 function onLectionLoad(words, lang){
     currentWordFile = words
+
+    currentWordList = new WordList(currentWordFile)
 
     isGame = true
     

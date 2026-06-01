@@ -2,6 +2,7 @@ import { loadData, saveData } from "../loader/data_saver.js"
 import { getVerbFileNames, loadVerbFile, updateHTMLSelectVerbFile } from "../loader/lection_loader.js"
 import { Random } from "../structure/random.js"
 import { DataHolder } from "../structure/data_holder.js"
+import { WordList } from "../structure/random_word.js"
 
 let dataHolder = new DataHolder("website_data")
 
@@ -58,9 +59,11 @@ let upperCase = false
 let allWordsSeenMarkVisible = false
 let deHint = ""
 let perfektHint = ""
+let wordList
 
 function onWordFileLoad(words, lang){
     currentWordFile = words
+    wordList = new WordList(currentWordFile)
 
     updateStats()
 
@@ -193,6 +196,8 @@ function sayWord(usedWord){
 }
 
 function getRandomWord(){
+    return wordList.getRandomWord(currentWord)
+    /*
     let nextWord
 
     if (availableWords.length <= 0){
@@ -209,10 +214,16 @@ function getRandomWord(){
 
     let randomWordIndex = Random.getNumber(0, availableWords.length -1)
 
-    nextWord = currentWordFile[availableWords[randomWordIndex]]
+    if (currentWordFile.length - 1 < availableWords[randomWordIndex]) {
+        nextWord = currentWordFile[0]
+        availableWords = []
+    }
+    else {
+        nextWord = currentWordFile[availableWords[randomWordIndex]]
+    }
 
     if (currentWord){
-        while (nextWord === currentWord){
+        while (nextWord === currentWord && currentWordFile.length > 1){
             randomWordIndex = Random.getNumber(0, availableWords.length -1)
 
             nextWord = currentWordFile[availableWords[randomWordIndex]]
@@ -224,6 +235,7 @@ function getRandomWord(){
     }
 
     return nextWord
+    */
 }
 
 function getNextWord(){
